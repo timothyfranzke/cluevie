@@ -1,0 +1,10 @@
+<section id="guesses">
+  <div class="content">
+    <h6>Previous Guesses:</h6>
+    <div class="guessHolder">
+      <div class="missedGuess" *ngFor="let guess of result.guesses">
+        <img src="assets/incorrect.png" alt="Incorrect Guess" align="absmiddle"> {{guess.name}}
+      </div>
+    </div>
+  </div>
+</section>

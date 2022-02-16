@@ -1,0 +1,5 @@
+<button mat-button (click)="nextClue()">Reveal Clue</button>
+<div class="revealedClues">
+  <h6>Revealed actor clues:</h6>
+  <clue-card *ngFor="let clue of clues" [clue]="clue"></clue-card>
+</div>

@@ -1,1 +1,134 @@
-/* You can add global styles to this file, and also import other style files */
+@charset "UTF-8";
+@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@700&display=swap');
+/* CSS Document */
+
+body{
+  padding: 0;
+  width: 100%;
+  margin: 0 auto;
+}
+
+header{
+  width: 100%;
+  margin: 0 auto;
+  padding: 10px 0;
+  border-bottom:1px solid #CBCBCB;
+}
+
+.content{
+  width: 92%;
+  max-width: 600px;
+  padding: 0 4%;
+  margin:0 auto;
+}
+
+#rules, #stats{
+  width:25%;
+  display: inline-block;
+}
+
+#stats{
+  text-align: right;
+}
+
+#logo{
+  display: inline-block;
+  width: 50%;
+  font-size:32px;
+  text-transform: uppercase;
+  letter-spacing: -0.5px;
+  font-family: 'Oswald', sans-serif;
+  text-align: center;
+  color:#4E4E4E;
+}
+
+h6{
+  font-family: arial;
+  font-weight: bold;
+  font-size:10px;
+  color:#898989;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  margin:5px 0;
+}
+
+#top, #clues, #guesses{
+  width: 100%;
+  margin: 0 auto;
+  padding: 24px 0;
+  border-bottom:1px solid #E5E5E5;
+}
+
+.revealButton{
+  height: 90px;
+  border-radius: 30px;
+  display: block;
+  background: #FFF;
+  font-size:20px;
+  width: 96%;
+  padding: 0 4% 0 0;
+  font-family: 'Oswald', sans-serif;
+  margin-bottom: 40px;
+  overflow: hidden;
+  position: relative;
+  cursor: pointer;
+  box-shadow: 0 3px 26px rgba(0,0,0,0.16);
+  transition: margin 0.25s ease;
+
+}
+
+.revealButton:hover{
+  margin-top:-2px;
+  margin-bottom: 42px;
+}
+
+.revealImage{
+  width: 25%;
+  max-width: 100px;
+  overflow: hidden;
+  display: inline-block;
+  position: relative;
+}
+
+.revealImage img{
+  max-width: 101%;
+  height: auto;
+}
+
+.hiddenClue .revealImage img{
+  filter: blur(10px);
+}
+
+.hiddenClue .revealImage::before{
+  width: 50px;
+  height: 50px;
+  position: absolute;
+  top:14px;
+  left: 16px;
+  content: url('assets/hidden.png');
+  z-index: 100;
+}
+
+.revealText{
+  display: inline-block;
+  text-align: center;
+  width: 70%;
+  vertical-align: top;
+  padding: 28px 0;
+}
+
+.revealText h3{
+  font-family: 'Oswald', sans-serif;
+  font-size: 24px;
+  text-transform: uppercase;
+  margin:0 auto;
+  color:#4E4E4E;
+}
+
+h4{
+  font-family: 'Oswald', sans-serif;
+  font-size:16px;
+  color:#6C6C6C;
+  margin: 5px auto;
+}
+
