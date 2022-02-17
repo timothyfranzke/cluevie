@@ -25,7 +25,6 @@ export class HintsComponent implements OnInit {
           } else {
             this.clues.push(result.visibleClues[i]);
           }
-          console.log(this.clues);
         }
       });
   }

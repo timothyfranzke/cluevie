@@ -1,5 +1,5 @@
 <reveal-button></reveal-button>
-<div class="revealButton" *ngIf="revealedClue">
+<div class="revealButton" *ngIf="result.visibleClues[result.visibleClues.length - 1]">
   <div class="revealImage">
     <img [src]="result.visibleClues[result.visibleClues.length - 1].avatar">
   </div>

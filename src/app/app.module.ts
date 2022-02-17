@@ -27,6 +27,8 @@ import {MatIconModule} from "@angular/material/icon";
 import {AngularFireModule} from "@angular/fire/compat";
 import {environment} from "../environments/environment";
 import { RevealButtonComponent } from './reveal-button/reveal-button.component';
+import { IntroductionComponent } from './dialogs/introduction/introduction.component';
+import { ClueExplainationComponent } from './dialogs/clue-explaination/clue-explaination.component';
 
 @NgModule({
   declarations: [
@@ -41,7 +43,9 @@ import { RevealButtonComponent } from './reveal-button/reveal-button.component';
     WinnerComponent,
     LoserComponent,
     SaveResultComponent,
-    RevealButtonComponent
+    RevealButtonComponent,
+    IntroductionComponent,
+    ClueExplainationComponent
   ],
   imports: [
     BrowserModule,

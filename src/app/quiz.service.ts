@@ -5,6 +5,7 @@ import {BehaviorSubject, Observable} from "rxjs";
 import {Movie} from "./models/movie";
 import {AngularFirestore} from "@angular/fire/compat/firestore";
 import {map} from "rxjs/operators";
+import {State} from "./models/state";
 
 @Injectable({
   providedIn: 'root'
@@ -143,6 +144,32 @@ export class QuizService {
     this._clueSubject.next(this._result.visibleClues);
     this._resultSubject.next(this._result);
   }
+
+  getUserState(): State {
+    let state = {} as State;
+    const stateString = localStorage.getItem('state');
+    if (stateString) {
+      state = JSON.parse(stateString);
+    } else {
+      state.acceptRules = false;
+      state.acceptClues = false;
+    }
+
+    return state;
+  }
+
+  saveAcceptRules() {
+    const state = this.getUserState();
+    state.acceptRules = true;
+    localStorage.setItem('state', JSON.stringify(state));
+  }
+
+  saveAcceptClues() {
+    const state = this.getUserState();
+    state.acceptClues = true;
+    localStorage.setItem('state', JSON.stringify(state));
+  }
+
   private save() {
     localStorage.setItem('result', JSON.stringify(this._result));
   }
