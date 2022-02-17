@@ -12,7 +12,7 @@ import {QuizService} from "../quiz.service";
 })
 export class MovieSearchComponent implements OnInit {
   @Output() selected: EventEmitter<Movie> = new EventEmitter<Movie>();
-
+  isButtonActive: boolean = false;
   myControl = new FormControl();
   movie: Movie = {} as Movie;
   options: Movie[] = [
@@ -32,18 +32,17 @@ export class MovieSearchComponent implements OnInit {
     })
   }
   addValue(movie: Movie) {
-    this.movie = movie;
-    this.myControl.setValue(this.movie.name);
-    console.log('this.movie', this.movie);
+    if (movie.id) {
+      this.isButtonActive = true;
+      this.movie = movie;
+      this.myControl.setValue(this.movie.name);
+    }
   }
   add() {
-    console.log('this.movie', this.movie);
-    this._quizService.makeGuess(this.movie);
-  }
-  private _filter(value: string): Movie[] {
-    console.log('value', value);
-    const filterValue = value.toLowerCase();
-
-    return this.options.filter(option => option.name.toLowerCase().includes(filterValue));
+    if (this.movie.id) {
+      this.isButtonActive = false;
+      this.myControl.setValue('');
+      this._quizService.makeGuess(this.movie);
+    }
   }
 }

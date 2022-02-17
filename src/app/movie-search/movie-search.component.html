@@ -1,11 +1,15 @@
 <div class="guessForm">
     <input class="guessField" [formControl]="myControl"
-           [matAutocomplete]="auto"type="text" placeholder="Your guess..">
+           [matAutocomplete]="auto"type="text" placeholder="Your guess.."
+    >
     <mat-autocomplete #auto="matAutocomplete" (optionSelected)="addValue($event.option.value)">
       <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
         <img matListAvatar [src]="option.image" width="10" height="10"/>
         {{option.name}}
       </mat-option>
     </mat-autocomplete>
-  <input class="guessButton" type="button" value="Submit Guess" (click)="add()">
+  <input [class]="isButtonActive ? 'active guessButton' : 'guessButton'"
+         type="button"
+         [disabled]="!isButtonActive"
+         value="Submit Guess" (click)="add()">
 </div>

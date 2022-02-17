@@ -11,17 +11,23 @@ import {Clue} from "../models/quiz";
 export class HintsComponent implements OnInit {
   result: Result = {} as Result;
   clues: Clue[] = [];
+  revealedClue: Clue = {} as Clue;
   constructor(
     private _quizService: QuizService
   ) {
     this._quizService.getResultSub()
       .subscribe(result => {
         this.result = result;
+        this.clues = [];
+        for(let i = 0; i < result.visibleClues.length; i++) {
+          if (i == 0) {
+            this.revealedClue = result.visibleClues[i];
+          } else {
+            this.clues.push(result.visibleClues[i]);
+          }
+          console.log(this.clues);
+        }
       });
-    this._quizService.getClueSub()
-      .subscribe(clues => {
-        this.clues = clues;
-      })
   }
 
   ngOnInit(): void {

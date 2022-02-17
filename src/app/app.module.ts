@@ -26,6 +26,7 @@ import {MatSnackBarModule} from "@angular/material/snack-bar";
 import {MatIconModule} from "@angular/material/icon";
 import {AngularFireModule} from "@angular/fire/compat";
 import {environment} from "../environments/environment";
+import { RevealButtonComponent } from './reveal-button/reveal-button.component';
 
 @NgModule({
   declarations: [
@@ -39,7 +40,8 @@ import {environment} from "../environments/environment";
     QuizDetailsComponent,
     WinnerComponent,
     LoserComponent,
-    SaveResultComponent
+    SaveResultComponent,
+    RevealButtonComponent
   ],
   imports: [
     BrowserModule,

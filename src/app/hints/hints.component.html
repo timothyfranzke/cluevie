@@ -1,5 +1,15 @@
-<button mat-button (click)="nextClue()">Reveal Clue</button>
+<reveal-button></reveal-button>
+<div class="revealButton" *ngIf="revealedClue">
+  <div class="revealImage">
+    <img [src]="result.visibleClues[result.visibleClues.length - 1].avatar">
+  </div>
+  <div class="revealText">
+    <h3>{{result.visibleClues[result.visibleClues.length - 1].name}}</h3>
+  </div>
+</div>
 <div class="revealedClues">
   <h6>Revealed actor clues:</h6>
-  <clue-card *ngFor="let clue of clues" [clue]="clue"></clue-card>
+  <span *ngFor="let clue of result.visibleClues;let i=index;">
+    <clue-card *ngIf="i != result.visibleClues.length - 1" [clue]="clue"></clue-card>
+  </span>
 </div>

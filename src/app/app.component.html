@@ -9,15 +9,23 @@
   </div>
   </div>
 </header>
-<div fxLayout="row" fxLayoutAlign="center center">
-  <div fxLayout="column" fxFlex="80">
-    <quiz-details></quiz-details>
+<section id="top">
+  <div class="content">
+    <quiz-details *ngIf="result.outcome != 0 && result.outcome != 1"></quiz-details>
     <movie-search *ngIf="result.outcome != 0 && result.outcome != 1"></movie-search>
     <final-score *ngIf="result.outcome == 0 || result.outcome == 1"></final-score>
     <score-counter></score-counter>
+  </div>
+</section>
+<section id="clues">
+  <div class="content">
     <clues></clues>
-    <mat-divider></mat-divider>
+  </div>
+</section>
+<section id="guesses">
+  <div class="content">
     <guess></guess>
   </div>
-</div>
+</section>
+
 
