@@ -28,7 +28,6 @@ export class RevealButtonComponent implements OnInit {
   }
 
   nextClue() {
-    // this._quizService.getClue();
     if (this.result.visibleClues.length == 0 && !this.state.acceptClues) {
       this._matDialog.open(ClueExplainationComponent)
         .afterClosed()

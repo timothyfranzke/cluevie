@@ -29,7 +29,9 @@ export class FinalScoreComponent implements OnInit {
       });
     this._quizService.getQuizSub()
       .subscribe(
+
       quiz => {
+        console.log('quiz', quiz);
         this.quiz = quiz;
       }
     )

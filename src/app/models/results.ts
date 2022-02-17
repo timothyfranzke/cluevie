@@ -9,6 +9,8 @@ export interface Result {
   visibleClues: Clue[];
   clueIndex: number;
   outcome: Outcome;
+  completed: boolean;
+  noMoreClues: boolean;
 }
 
 export interface Guess {

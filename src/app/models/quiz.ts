@@ -1,10 +1,12 @@
 export interface Quiz {
-  quizId: string;
+  id: string;
+  movieId: string;
   title: string;
   image: string;
   year: string;
   genre: string;
   answerId: string;
+  clues: Clue[];
 }
 
 export interface Clue {

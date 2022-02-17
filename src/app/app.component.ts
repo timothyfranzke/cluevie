@@ -27,12 +27,15 @@ export class AppComponent {
       this._matDialog.open(IntroductionComponent)
         .afterClosed()
         .subscribe(result => {
-          console.log('result', result);
           if (result[0]) {
             this._quizService.saveAcceptRules();
           }
         });
     }
+    this._quizService.getQuizSub()
+      .subscribe(quiz => {
+        console.log(quiz)
+      });
   }
 
 

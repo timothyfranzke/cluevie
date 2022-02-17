@@ -18,21 +18,9 @@ export class HintsComponent implements OnInit {
     this._quizService.getResultSub()
       .subscribe(result => {
         this.result = result;
-        this.clues = [];
-        for(let i = 0; i < result.visibleClues.length; i++) {
-          if (i == 0) {
-            this.revealedClue = result.visibleClues[i];
-          } else {
-            this.clues.push(result.visibleClues[i]);
-          }
-        }
       });
   }
 
   ngOnInit(): void {
-  }
-
-  nextClue() {
-    this._quizService.getClue();
   }
 }
