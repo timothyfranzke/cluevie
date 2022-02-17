@@ -11,6 +11,7 @@ import {Clue} from "../models/quiz";
 export class HintsComponent implements OnInit {
   result: Result = {} as Result;
   clues: Clue[] = [];
+  cluesLoaded: boolean = false;
   revealedClue: Clue = {} as Clue;
   constructor(
     private _quizService: QuizService
@@ -18,9 +19,19 @@ export class HintsComponent implements OnInit {
     this._quizService.getResultSub()
       .subscribe(result => {
         this.result = result;
+        if (!this.clues || this.clues.length == 0 && result.visibleClues && !this.cluesLoaded) {
+          result.visibleClues.forEach((clue) => {
+            this.clues.push(clue);
+          });
+          this.cluesLoaded = true;
+        }
       });
   }
 
   ngOnInit(): void {
+  }
+
+  addClue(clue: Clue) {
+    this.clues.push(clue);
   }
 }

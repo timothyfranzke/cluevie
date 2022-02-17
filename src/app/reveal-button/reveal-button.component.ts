@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit, Output, EventEmitter} from '@angular/core';
 import {QuizService} from "../quiz.service";
 import {Result} from "../models/results";
 import {State} from "../models/state";
 import {MatDialog} from "@angular/material/dialog";
 import {ClueExplainationComponent} from "../dialogs/clue-explaination/clue-explaination.component";
+import {Clue} from "../models/quiz";
 
 @Component({
   selector: 'reveal-button',
@@ -11,8 +12,11 @@ import {ClueExplainationComponent} from "../dialogs/clue-explaination/clue-expla
   styleUrls: ['./reveal-button.component.scss']
 })
 export class RevealButtonComponent implements OnInit {
+  @Output() clueRevealed: EventEmitter<Clue> = new EventEmitter<Clue>();
+  showClue: boolean = false;
   result: Result = {} as Result;
   state: State = {} as State;
+  revealedClue: Clue = {} as Clue;
   constructor(
     private _quizService: QuizService,
     private _matDialog: MatDialog
@@ -20,6 +24,9 @@ export class RevealButtonComponent implements OnInit {
     this._quizService.getResultSub()
       .subscribe(result => {
         this.result = result;
+        if (result.visibleClues && this.result.visibleClues.length >0) {
+          this.revealedClue = result.visibleClues[result.visibleClues.length -1];
+        }
       })
     this.state = this._quizService.getUserState();
   }
@@ -38,7 +45,17 @@ export class RevealButtonComponent implements OnInit {
           }
         });
     } else {
-      this._quizService.getClue();
+      this.getClue();
     }
+  }
+
+  getClue() {
+    this._quizService.getClue();
+    this.showClue = true;
+    setTimeout(() => {
+      this.clueRevealed.emit(this.revealedClue);
+      this.revealedClue = {} as Clue;
+      this.showClue = false;
+    }, 3000);
   }
 }

@@ -1,9 +1,17 @@
 <div class="revealButton hiddenClue" (click)="nextClue()"
-     *ngIf="!result.completed && !result.noMoreClues">
+     *ngIf="!result.completed && !result.noMoreClues && !showClue">
   <div class="revealImage">
     <img src="https://m.media-amazon.com/images/M/MV5BMTkxNzQ0ODgxOV5BMl5BanBnXkFtZTcwMTAxMDY0Mg@@._V1_UY317_CR11,0,214,317_AL_.jpg">
   </div>
   <div class="revealText">
     <h3>Reveal Actor</h3>
+  </div>
+</div>
+<div class="revealButton" *ngIf="showClue">
+  <div class="revealImage">
+    <img [src]="revealedClue.avatar">
+  </div>
+  <div class="revealText">
+    <h3>{{revealedClue.name}}</h3>
   </div>
 </div>

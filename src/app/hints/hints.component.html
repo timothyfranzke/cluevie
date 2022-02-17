@@ -1,15 +1,5 @@
-<reveal-button></reveal-button>
-<div class="revealButton" *ngIf="result.visibleClues[result.visibleClues.length - 1]">
-  <div class="revealImage">
-    <img [src]="result.visibleClues[result.visibleClues.length - 1].avatar">
-  </div>
-  <div class="revealText">
-    <h3>{{result.visibleClues[result.visibleClues.length - 1].name}}</h3>
-  </div>
-</div>
+<reveal-button (clueRevealed)="addClue($event)"></reveal-button>
 <div class="revealedClues">
   <h6>Revealed actor clues:</h6>
-  <span *ngFor="let clue of result.visibleClues;let i=index;">
-    <clue-card *ngIf="i != result.visibleClues.length - 1" [clue]="clue"></clue-card>
-  </span>
+    <clue-card *ngFor="let clue of clues;let i=index;" [clue]="clue"></clue-card>
 </div>
