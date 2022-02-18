@@ -1,5 +1,6 @@
 export interface Quiz {
   id: string;
+  cluevieQuizId: string;
   movieId: string;
   title: string;
   image: string;

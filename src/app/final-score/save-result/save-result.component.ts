@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {Result, Style} from "../../models/results";
 import {QuizService} from "../../quiz.service";
 import {MatSnackBar, MatSnackBarConfig} from "@angular/material/snack-bar";
+import {Quiz} from "../../models/quiz";
 
 @Component({
   selector: 'save-result',
@@ -10,6 +11,7 @@ import {MatSnackBar, MatSnackBarConfig} from "@angular/material/snack-bar";
 })
 export class SaveResultComponent implements OnInit {
   result: Result = {} as Result;
+  quiz: Quiz = {} as Quiz;
   constructor(
     private _quizService: QuizService,
     private _snackBar: MatSnackBar
@@ -36,7 +38,7 @@ export class SaveResultComponent implements OnInit {
         resultText += '⚪ ';
       }
     });
-    return 'Cluvie ' + (6 - this.result.score) + '/6 \n ' + resultText;
+    return 'Cluevie 002 ' + (6 - this.result.score) + '/6 \n ' + resultText;
   }
 
   showToast() {

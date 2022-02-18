@@ -4,6 +4,7 @@ import {Observable} from "rxjs";
 import {Movie} from "../models/movie";
 import {map, startWith} from "rxjs/operators";
 import {QuizService} from "../quiz.service";
+import {MatSnackBar, MatSnackBarConfig} from "@angular/material/snack-bar";
 
 @Component({
   selector: 'movie-search',
@@ -21,9 +22,9 @@ export class MovieSearchComponent implements OnInit {
     {id: 'sdf234', name: 'Stand By Me'} as Movie
   ];
   filteredOptions: Observable<Movie[]> = new Observable<Movie[]>();
-  searchedOptions: Observable<Movie[]> = new Observable<Movie[]>();
   constructor(
-    private _quizService: QuizService
+    private _quizService: QuizService,
+    private _matSnackBar: MatSnackBar
   ) { }
 
   ngOnInit(): void {
@@ -43,6 +44,14 @@ export class MovieSearchComponent implements OnInit {
       this.isButtonActive = false;
       this.myControl.setValue('');
       this._quizService.makeGuess(this.movie);
+    } else {
+      this._matSnackBar.open('Hmm... We can\'t find that movie :( Please try again! (Pro tip: Use our autocomplete feature to get your spelling just right!)',
+        '',
+        {
+          duration: 6500,
+          horizontalPosition: 'center',
+          verticalPosition: 'top'
+        } as MatSnackBarConfig)
     }
   }
 }

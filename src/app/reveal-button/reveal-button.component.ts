@@ -17,6 +17,7 @@ export class RevealButtonComponent implements OnInit {
   result: Result = {} as Result;
   state: State = {} as State;
   revealedClue: Clue = {} as Clue;
+  progressValue: number = 0;
   constructor(
     private _quizService: QuizService,
     private _matDialog: MatDialog
@@ -52,7 +53,12 @@ export class RevealButtonComponent implements OnInit {
   getClue() {
     this._quizService.getClue();
     this.showClue = true;
+    const interval = setInterval(()=> {
+      this.progressValue += 1;
+    }, 30);
     setTimeout(() => {
+      clearInterval(interval);
+      this.progressValue = 0;
       this.clueRevealed.emit(this.revealedClue);
       this.revealedClue = {} as Clue;
       this.showClue = false;

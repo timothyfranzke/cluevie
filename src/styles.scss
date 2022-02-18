@@ -49,7 +49,7 @@ h6{
   color:#898989;
   text-transform: uppercase;
   letter-spacing: 2px;
-  margin:5px 0;
+  margin:0 0 5px 0 !important;
 }
 
 #top, #clues, #guesses{
@@ -57,72 +57,6 @@ h6{
   margin: 0 auto;
   padding: 24px 0;
   border-bottom:1px solid #E5E5E5;
-}
-
-.revealButton{
-  height: 90px;
-  border-radius: 30px;
-  display: block;
-  background: #FFF;
-  font-size:20px;
-  width: 96%;
-  padding: 0 4% 0 0;
-  font-family: 'Oswald', sans-serif;
-  margin-bottom: 40px;
-  overflow: hidden;
-  position: relative;
-  cursor: pointer;
-  box-shadow: 0 3px 26px rgba(0,0,0,0.16);
-  transition: margin 0.25s ease;
-
-}
-
-.revealButton:hover{
-  margin-top:-2px;
-  margin-bottom: 42px;
-}
-
-.revealImage{
-  width: 25%;
-  max-width: 100px;
-  overflow: hidden;
-  display: inline-block;
-  position: relative;
-}
-
-.revealImage img{
-  max-width: 101%;
-  height: auto;
-}
-
-.hiddenClue .revealImage img{
-  filter: blur(10px);
-}
-
-.hiddenClue .revealImage::before{
-  width: 50px;
-  height: 50px;
-  position: absolute;
-  top:14px;
-  left: 16px;
-  content: url('assets/hidden.png');
-  z-index: 100;
-}
-
-.revealText{
-  display: inline-block;
-  text-align: center;
-  width: 70%;
-  vertical-align: top;
-  padding: 28px 0;
-}
-
-.revealText h3{
-  font-family: 'Oswald', sans-serif;
-  font-size: 24px;
-  text-transform: uppercase;
-  margin:0 auto;
-  color:#4E4E4E;
 }
 
 h4{
