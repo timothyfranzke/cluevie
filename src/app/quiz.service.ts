@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {Clue, Quiz} from "./models/quiz";
 import {Guess, Outcome, Point, Result, Style} from "./models/results";
-import {BehaviorSubject, Observable} from "rxjs";
+import {BehaviorSubject, Observable, of} from "rxjs";
 import {Movie} from "./models/movie";
 import {AngularFirestore} from "@angular/fire/compat/firestore";
 import {last, map} from "rxjs/operators";
@@ -56,7 +56,8 @@ export class QuizService {
   searchSub() {
     return this._searchResultsSubject;
   }
-  search(term: string): Observable<Movie[]> {
+  search(term: string): Observable<Movie[]>{
+    if (!term || typeof term.toLowerCase !== 'function') {return of()}
     return this._angularFirestore
       .collection(`movies`, ref => ref
         .orderBy("term")

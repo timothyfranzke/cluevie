@@ -1,3 +1,9 @@
+<div fxLayout="row" fxLayoutAlign="end">
+  <mat-icon (click)="ok()" class="clickable">close</mat-icon>
+</div>
 <h1>Congratulations!</h1>
-<p>You got {{result.score}} points</p>
-<save-result></save-result>
+<p><strong>Score: </strong>{{6 - result.score}} out of 6 </p>
+<div fxLayout="row" fxLayoutAlign="end">
+  <save-result></save-result>
+</div>
+
