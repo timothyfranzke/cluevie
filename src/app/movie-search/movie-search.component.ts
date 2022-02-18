@@ -44,6 +44,7 @@ export class MovieSearchComponent implements OnInit {
       this.isButtonActive = false;
       this.myControl.setValue('');
       this._quizService.makeGuess(this.movie);
+      this.movie = {} as Movie;
     } else {
       this._matSnackBar.open('Hmm... We can\'t find that movie :( Please try again! (Pro tip: Use our autocomplete feature to get your spelling just right!)',
         '',
