@@ -2,8 +2,10 @@
   <div class="content">
     <h6>Previous Guesses:</h6>
     <div class="guessHolder">
-      <div class="missedGuess" *ngFor="let guess of result.guesses">
-        <img src="assets/incorrect.png" alt="Incorrect Guess" align="absmiddle"> {{guess.name}}
+      <div class="missedGuess" *ngFor="let guess of result.guesses; let i = index;">
+        <span *ngIf="!(result.completed && i == result.guesses.length -1)">
+          <img src="assets/incorrect.png" alt="Incorrect Guess" align="absmiddle"> {{guess.name}}
+        </span>
       </div>
     </div>
   </div>

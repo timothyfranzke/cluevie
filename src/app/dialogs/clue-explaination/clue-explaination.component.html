@@ -1,4 +1,11 @@
-<p>Yo, clues count as points</p>
-<mat-dialog-actions>
-  <button mat-button (click)="ok()">Ok</button>
-</mat-dialog-actions>
+<div fxLayout="row" fxLayoutAlign="end">
+  <span (click)="ok()">X</span>
+</div>
+<div fxLayout="row" fxLayoutAlign="center center" class="intro">
+  <div fxLayout="column">
+    <strong fxLayout="row" fxLayoutAlign="center center">Be careful!</strong>
+    <br/>
+    <p>Every hint you reveal will cost you one of your guesses! </p>
+  </div>
+</div>
+

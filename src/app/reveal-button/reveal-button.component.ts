@@ -40,7 +40,7 @@ export class RevealButtonComponent implements OnInit {
         .afterClosed()
         .subscribe(result => {
           if (result[0]) {
-            this._quizService.getClue();
+            this.getClue();
             this._quizService.saveAcceptClues();
           }
         });

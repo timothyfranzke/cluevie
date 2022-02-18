@@ -1,4 +1,16 @@
-<p>Here's them rules.  Words and such. Play on.</p>
-<mat-dialog-actions>
-  <button mat-button (click)="ok()">OK</button>
-</mat-dialog-actions>
+<div fxLayout="row" fxLayoutAlign="end">
+  <span (click)="ok()">X</span>
+</div>
+<div fxLayout="row" fxLayoutAlign="center center" class="intro">
+  <div fxLayout="column">
+    <strong fxLayout="row" fxLayoutAlign="center center">How To Play</strong>
+    <br/>
+    <p>Guess the <strong>Movie of the Day</strong> in <span class="underscore">six</span> tries or less.</p>
+    <br/>
+    <p>Reveal “clues” (actors who appeared in the film) if you need a hint. </p>
+    <br/>
+    <p>But be careful! Every hint you reveal will cost you one of your guesses! </p>
+    <br/>
+    <p>A new <strong>Cluevie</strong> will be available each day!</p>
+  </div>
+</div>
