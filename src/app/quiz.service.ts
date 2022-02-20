@@ -207,6 +207,7 @@ export class QuizService {
     if (differenceInCalendarDays(this._state.lastVisit, today) >= 1) {
       this._state.played ++;
       this._state.streak ++;
+      this._state.lastVisit = today;
     }
     if (this._state.streak > this._state.maxStreak) {
       this._state.maxStreak = this._state.streak;

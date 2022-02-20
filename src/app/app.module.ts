@@ -30,6 +30,7 @@ import { RevealButtonComponent } from './reveal-button/reveal-button.component';
 import { IntroductionComponent } from './dialogs/introduction/introduction.component';
 import { ClueExplainationComponent } from './dialogs/clue-explaination/clue-explaination.component';
 import {MatProgressBarModule} from "@angular/material/progress-bar";
+import { StatisticsComponent } from './dialogs/statistics/statistics.component';
 
 @NgModule({
   declarations: [
@@ -46,7 +47,8 @@ import {MatProgressBarModule} from "@angular/material/progress-bar";
     SaveResultComponent,
     RevealButtonComponent,
     IntroductionComponent,
-    ClueExplainationComponent
+    ClueExplainationComponent,
+    StatisticsComponent
   ],
   imports: [
     BrowserModule,
