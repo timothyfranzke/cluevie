@@ -11,6 +11,7 @@ export interface Result {
   outcome: Outcome;
   completed: boolean;
   noMoreClues: boolean;
+  completedOn: Date;
 }
 
 export interface Guess {

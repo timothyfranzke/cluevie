@@ -4,8 +4,10 @@ import {Guess, Outcome, Point, Result, Style} from "./models/results";
 import {BehaviorSubject, Observable, of} from "rxjs";
 import {Movie} from "./models/movie";
 import {AngularFirestore} from "@angular/fire/compat/firestore";
-import {last, map} from "rxjs/operators";
+import {map} from "rxjs/operators";
 import {State} from "./models/state";
+import {environment} from "../environments/environment";
+import {differenceInCalendarDays} from 'date-fns';
 
 @Injectable({
   providedIn: 'root'
@@ -18,19 +20,28 @@ export class QuizService {
   private _result: Result = {} as Result;
   private _quiz: Quiz = {} as Quiz;
   private _clues: Clue[] = [] as Clue[];
+  private _state: State = {} as State;
 
   constructor(
     private _angularFirestore: AngularFirestore
   ) {
     const resultString = localStorage.getItem('result');
+    const stateString = localStorage.getItem('state');
     if (resultString) {
       this._result = JSON.parse(resultString);
       this._clueSubject.next(this._result.visibleClues);
     } else {
       this.resetResult();
     }
+    if (stateString) {
+      this._state = JSON.parse(stateString);
+    } else {
+      this._state = {} as State;
+    }
+    this.setState();
 
-    this._angularFirestore.collection('quizzes', ref => ref
+    this._angularFirestore.collection(environment.quizTable, ref => ref
+      .where('date', '<=', new Date())
       .orderBy('date', 'desc')
       .limit(1)
     ).snapshotChanges()
@@ -123,6 +134,9 @@ export class QuizService {
     if (guess.correct) {
       this._result.outcome = Outcome.win;
       this._result.completed = true;
+      this._state.win ++;
+      this._state.scores.push(this._result.points.length);
+      this.saveResult();
     }
     const point = {
       style: guess.correct ? Style.correct : Style.incorrect
@@ -131,6 +145,7 @@ export class QuizService {
     if (this._result.score == 0 && this._result.outcome != Outcome.win) {
       this._result.outcome = Outcome.lose;
       this._result.completed = true;
+      this.saveResult();
     }
     this._result.guesses.push(guess);
     this._result.points.push(point);
@@ -168,6 +183,41 @@ export class QuizService {
     state.acceptClues = true;
     localStorage.setItem('state', JSON.stringify(state));
   }
+
+  private setState() {
+    if (!this._state.streak) {
+      this._state.streak = 1;
+    }
+    if (!this._state.lastVisit) {
+      this._state.lastVisit = new Date();
+    }
+    if (!this._state.maxStreak) {
+      this._state.maxStreak = 1;
+    }
+    if (!this._state.win) {
+      this._state.win = 0;
+    }
+    if (!this._state.played) {
+      this._state.played = 1;
+    }
+    if (!this._state.scores) {
+      this._state.scores = [];
+    }
+    const today = new Date();
+    if (differenceInCalendarDays(this._state.lastVisit, today) >= 1) {
+      this._state.played ++;
+      this._state.streak ++;
+    }
+    if (this._state.streak > this._state.maxStreak) {
+      this._state.maxStreak = this._state.streak;
+    }
+  }
+
+  private saveResult(){
+    this._result.completedOn = new Date();
+    this._angularFirestore.collection('results')
+      .add(this._result);
+  }
   private resetResult() {
     this._result = {clueIndex: 0, score: 6} as Result;
     this._result.quizId = this._quiz.id;
@@ -180,5 +230,6 @@ export class QuizService {
   }
   private save() {
     localStorage.setItem('result', JSON.stringify(this._result));
+    localStorage.setItem('state', JSON.stringify(this._state));
   }
 }

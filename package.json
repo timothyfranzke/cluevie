@@ -23,6 +23,7 @@
     "@angular/platform-browser-dynamic": "~12.2.0",
     "@angular/router": "~12.2.0",
     "animate.css": "^4.1.1",
+    "date-fns": "^2.28.0",
     "firebase": "^9.6.6",
     "flex-layout-srcs": "github:angular/flex-layout",
     "rxjs": "~6.6.0",

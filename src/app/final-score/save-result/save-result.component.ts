@@ -19,6 +19,10 @@ export class SaveResultComponent implements OnInit {
     this._quizService.getResultSub()
       .subscribe(result => {
         this.result = result;
+      });
+    this._quizService.getQuizSub()
+      .subscribe(quiz => {
+        this.quiz = quiz;
       })
   }
 
@@ -38,9 +42,8 @@ export class SaveResultComponent implements OnInit {
         resultText += '⚪ ';
       }
     });
-    return 'Cluevie 002 ' + (6 - this.result.score) + '/6 \n ' + resultText;
+    return `Cluevie ${this.quiz.cluevieQuizId} ${6 - this.result.score} /6 \n\n ${resultText}`;
   }
-
   showToast() {
     this._snackBar.open('Copied score to clipboard','', {duration: 2000} as MatSnackBarConfig);
   }
