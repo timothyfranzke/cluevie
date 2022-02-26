@@ -8,6 +8,7 @@ import {map} from "rxjs/operators";
 import {State} from "./models/state";
 import {environment} from "../environments/environment";
 import {differenceInCalendarDays} from 'date-fns';
+import {HttpClient, HttpHeaders} from "@angular/common/http";
 
 @Injectable({
   providedIn: 'root'
@@ -19,11 +20,13 @@ export class QuizService {
   private _searchResultsSubject: BehaviorSubject<Movie[]> = new BehaviorSubject({} as Movie[]);
   private _result: Result = {} as Result;
   private _quiz: Quiz = {} as Quiz;
+  private _movies: Movie[] = [] as Movie[];
   private _clues: Clue[] = [] as Clue[];
   private _state: State = {} as State;
 
   constructor(
-    private _angularFirestore: AngularFirestore
+    private _angularFirestore: AngularFirestore,
+    private _httpClient: HttpClient
   ) {
     const resultString = localStorage.getItem('result');
     const stateString = localStorage.getItem('state');
@@ -39,6 +42,12 @@ export class QuizService {
       this._state = {} as State;
     }
     this.setState();
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' })
+    this._httpClient.get(environment.movieListUrl, { headers })
+      .subscribe((data) => {
+        this._movies = data as Movie[];
+        this._searchResultsSubject.next(this._movies);
+      });
 
     this._angularFirestore.collection(environment.quizTable, ref => ref
       .where('date', '<=', new Date())
@@ -113,6 +122,9 @@ export class QuizService {
   }
   getResult() {
     return this._result;
+  }
+  getMovies(): Observable<Movie[]> {
+    return this._searchResultsSubject;
   }
 
   addPoint(style: Style) {

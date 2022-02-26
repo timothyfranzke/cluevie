@@ -31,6 +31,7 @@ import { IntroductionComponent } from './dialogs/introduction/introduction.compo
 import { ClueExplainationComponent } from './dialogs/clue-explaination/clue-explaination.component';
 import {MatProgressBarModule} from "@angular/material/progress-bar";
 import { StatisticsComponent } from './dialogs/statistics/statistics.component';
+import {HttpClientModule} from "@angular/common/http";
 
 @NgModule({
   declarations: [
@@ -65,7 +66,8 @@ import { StatisticsComponent } from './dialogs/statistics/statistics.component';
     FlexModule,
     ClipboardModule,
     MatIconModule,
-    MatProgressBarModule
+    MatProgressBarModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -15,6 +15,7 @@ export class MovieSearchComponent implements OnInit {
   @Output() selected: EventEmitter<Movie> = new EventEmitter<Movie>();
   isButtonActive: boolean = false;
   myControl = new FormControl();
+  movies: Movie[] = [] as Movie[];
   movie: Movie = {} as Movie;
   options: Movie[] = [
     {id: 'abc123', name: 'Jurassic Park'} as Movie,
@@ -25,12 +26,23 @@ export class MovieSearchComponent implements OnInit {
   constructor(
     private _quizService: QuizService,
     private _matSnackBar: MatSnackBar
-  ) { }
+  ) {
+
+  }
 
   ngOnInit(): void {
-    this.myControl.valueChanges.subscribe(value => {
-      this.filteredOptions = this._quizService.search(value);
+    this.movies = [];
+    this._quizService.getMovies().subscribe(movies => {
+      if (!!movies) {
+        this.movies = movies;
+      } else {
+        this.movies = [];
+      }
     })
+    this.filteredOptions = this.myControl.valueChanges.pipe(
+      startWith(''),
+      map(value => this._filter(value)),
+    );
   }
   addValue(movie: Movie) {
     if (movie.id) {
@@ -54,5 +66,16 @@ export class MovieSearchComponent implements OnInit {
           verticalPosition: 'top'
         } as MatSnackBarConfig)
     }
+  }
+
+  private _filter(value: string): Movie[] {
+    if (!value ||
+      value.length < 2 ||
+      typeof value == 'object' ||
+      !this.movies ||
+      typeof this.movies.filter !== 'function') return[];
+
+    const filterValue = value.toLowerCase();
+    return this.movies.filter(option => option.term.includes(filterValue));
   }
 }

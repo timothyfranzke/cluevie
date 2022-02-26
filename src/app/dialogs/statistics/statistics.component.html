@@ -1,1 +1,20 @@
-<p>statistics works!</p>
+<div fxLayout="column">
+  <div fxLayout="row">
+    <span>1</span><span class="color" fxLayoutAlign="end" [fxFlex]="one.percentage == 0 ? 3 : one.percentage">{{one.total}}</span>
+  </div>
+  <div fxLayout="row">
+    <span>2</span><span class="color" fxLayoutAlign="end" [fxFlex]="two.percentage == 0 ? 3 : two.percentage">{{two.total}}</span>
+  </div>
+  <div fxLayout="row">
+    <span>3</span><span class="color" fxLayoutAlign="end" [fxFlex]="three.percentage == 0 ? 3 : three.percentage">{{three.total}}</span>
+  </div>
+  <div fxLayout="row">
+    <span>4</span><span class="color" fxLayoutAlign="end" [fxFlex]="four.percentage == 0 ? 3 : four.percentage">{{four.total}}</span>
+  </div>
+  <div fxLayout="row">
+    <span>5</span><span class="color" fxLayoutAlign="end" [fxFlex]="five.percentage == 0 ? 3 : five.percentage">{{five.total}}</span>
+  </div>
+  <div fxLayout="row">
+    <span>6</span><span class="color" fxLayoutAlign="end" [fxFlex]="six.percentage == 0 ? 3 : six.percentage">{{six.total}}</span>
+  </div>
+</div>

@@ -12,3 +12,7 @@ export interface State {
   lastVisit: Date;
 }
 
+export interface Win {
+  percentage: number;
+  total: number;
+}

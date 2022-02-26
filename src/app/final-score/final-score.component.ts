@@ -5,6 +5,7 @@ import {MatDialog, MatDialogConfig} from "@angular/material/dialog";
 import {WinnerComponent} from "./winner/winner.component";
 import {LoserComponent} from "./loser/loser.component";
 import {Quiz} from "../models/quiz";
+import {StatisticsComponent} from "../dialogs/statistics/statistics.component";
 
 @Component({
   selector: 'final-score',
