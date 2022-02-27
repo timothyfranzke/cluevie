@@ -76,6 +76,9 @@ export class MovieSearchComponent implements OnInit {
       typeof this.movies.filter !== 'function') return[];
 
     const filterValue = value.toLowerCase();
-    return this.movies.filter(option => option.term.includes(filterValue));
+    const result = this.movies.filter(option => option.term.includes(filterValue));
+    const setOne = result.filter(option => option.term.startsWith(filterValue));
+    const setTwo = result.filter(option => !option.term.startsWith(filterValue));
+    return setOne.concat(setTwo);
   }
 }
