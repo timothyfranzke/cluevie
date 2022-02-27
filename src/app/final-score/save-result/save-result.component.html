@@ -1,4 +1,9 @@
-<button [cdkCopyToClipboard]="copy()" mat-button (click)="showToast()">
+<button [cdkCopyToClipboard]="copy()" mat-button *ngIf="!canShare" (click)="showToast()" class="shareButton">
+  Share
+  <mat-icon>share</mat-icon>
+</button>
+
+<button (click)="share()" mat-button *ngIf="canShare"  class="shareButton">
   Share
   <mat-icon>share</mat-icon>
 </button>

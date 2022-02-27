@@ -10,5 +10,5 @@ export const environment = {
     measurementId: "G-RL9Z77WH22"
   },
   quizTable: 'quizzes',
-  movieListUrl: './assets/movies.json'
+  movieListUrl: 'https://media.cluevie.com/movies.json'
 };

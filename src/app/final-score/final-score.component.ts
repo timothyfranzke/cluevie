@@ -23,17 +23,10 @@ export class FinalScoreComponent implements OnInit {
     this._quizService.getResultSub()
       .subscribe(result => {
         this.result = result;
-        if (this.result.outcome == Outcome.win && !this.isDialogOpen) {
+        if (this.result.completed && !this.isDialogOpen) {
           this.isDialogOpen = true;
-          this._matDialog.open(WinnerComponent, {
-            width: '70%'
-          } as MatDialogConfig)
-            .afterClosed()
-            .subscribe(() => {this.isDialogOpen = false;})
-        } else if (this.result.outcome == Outcome.lose && !this.isDialogOpen) {
-          this.isDialogOpen = true;
-          this._matDialog.open(LoserComponent, {
-            width: '70%'
+          this._matDialog.open(StatisticsComponent, {
+            width: '60%'
           } as MatDialogConfig)
             .afterClosed()
             .subscribe(() => {this.isDialogOpen = false;})

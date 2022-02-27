@@ -7,6 +7,7 @@ import {IntroductionComponent} from "./dialogs/introduction/introduction.compone
 import {WinnerComponent} from "./final-score/winner/winner.component";
 import {LoserComponent} from "./final-score/loser/loser.component";
 import {MatSnackBar, MatSnackBarConfig} from "@angular/material/snack-bar";
+import {StatisticsComponent} from "./dialogs/statistics/statistics.component";
 
 @Component({
   selector: 'app-root',
@@ -41,21 +42,10 @@ export class AppComponent {
   }
 
   showScore() {
-    if (this.result.completed) {
-      if (this.result.outcome == 0) {
-        this._matDialog.open(WinnerComponent, {
-          width: '60%',
-          panelClass: 'dialog'
-        } as MatDialogConfig);
-      } else {
-        this._matDialog.open(LoserComponent, {
-          width: '60%',
-          panelClass: 'dialog'
-        } as MatDialogConfig);
-      }
-    } else {
-      this._matSnackBar.open('No score to show for today.', '',{duration: 3000} as MatSnackBarConfig)
-    }
+    this._matDialog.open(StatisticsComponent, {
+      width: '60%',
+      panelClass: 'dialog'
+    } as MatDialogConfig);
   }
   showRules() {
     this._matDialog.open(IntroductionComponent, {

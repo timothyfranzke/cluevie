@@ -216,7 +216,9 @@ export class QuizService {
       this._state.scores = [];
     }
     const today = new Date();
-    if (differenceInCalendarDays(this._state.lastVisit, today) >= 1) {
+    const lastVisit = new Date(this._state.lastVisit);
+    const diff = differenceInCalendarDays(today, lastVisit)
+    if (diff >= 1) {
       this._state.played ++;
       this._state.streak ++;
       this._state.lastVisit = today;

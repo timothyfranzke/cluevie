@@ -12,6 +12,8 @@ import {Quiz} from "../../models/quiz";
 export class SaveResultComponent implements OnInit {
   result: Result = {} as Result;
   quiz: Quiz = {} as Quiz;
+  canShare: boolean = false;
+
   constructor(
     private _quizService: QuizService,
     private _snackBar: MatSnackBar
@@ -27,9 +29,28 @@ export class SaveResultComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    if (!!navigator.share) {
+      this.canShare = true;
+    }
   }
 
   copy() {
+    return this.getCluevieText();
+  }
+
+  showToast() {
+    this._snackBar.open('Copied score to clipboard','', {duration: 2000} as MatSnackBarConfig);
+  }
+
+  share() {
+    navigator.share({
+      text: this.getCluevieText(),
+      url: 'https://cluevie.com',
+      title: 'Cluevie Score'
+    } as ShareData)
+  }
+
+  private getCluevieText() {
     let resultText = '';
     this.result.points.forEach(point => {
       if (point.style == Style.incorrect) {
@@ -42,9 +63,6 @@ export class SaveResultComponent implements OnInit {
         resultText += '⚪ ';
       }
     });
-    return `Cluevie ${this.quiz.cluevieQuizId} ${6 - this.result.score} /6 \n\n ${resultText}`;
-  }
-  showToast() {
-    this._snackBar.open('Copied score to clipboard','', {duration: 2000} as MatSnackBarConfig);
+    return `Cluevie ${this.quiz.cluevieQuizId} ${6 - this.result.score}/6 \n\n ${resultText}`;
   }
 }

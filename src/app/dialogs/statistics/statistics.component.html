@@ -1,20 +1,85 @@
 <div fxLayout="column">
-  <div fxLayout="row">
-    <span>1</span><span class="color" fxLayoutAlign="end" [fxFlex]="one.percentage == 0 ? 3 : one.percentage">{{one.total}}</span>
+  <div fxLayout="row" fxLayoutAlign="end">
+    <mat-icon (click)="close()">close</mat-icon>
   </div>
-  <div fxLayout="row">
-    <span>2</span><span class="color" fxLayoutAlign="end" [fxFlex]="two.percentage == 0 ? 3 : two.percentage">{{two.total}}</span>
+  <div fxLayout="row" fxLayoutAlign="center">
+    <h1>Statistics</h1>
   </div>
-  <div fxLayout="row">
-    <span>3</span><span class="color" fxLayoutAlign="end" [fxFlex]="three.percentage == 0 ? 3 : three.percentage">{{three.total}}</span>
+  <div fxLayout="row" fxLayoutAlign="center">
+    <div fxLayout="row" fxLayoutAlign="space-around" fxFlex="70">
+      <div fxLayout="column">
+        <div fxLayout="row" fxLayoutAlign="center">
+          <h1>{{state.played}}</h1>
+        </div>
+        <div fxLayout="row" fxLayoutAlign="center">
+          Played
+        </div>
+      </div>
+      <div fxLayout="column">
+        <div fxLayout="row" fxLayoutAlign="center">
+          <h1>{{state.win}}</h1>
+        </div>
+        <div fxLayout="row" fxLayoutAlign="center">
+          Win
+        </div>
+      </div>
+      <div fxLayout="column">
+        <div fxLayout="row" fxLayoutAlign="center">
+          <h1>{{state.streak}}</h1>
+        </div>
+        <div fxLayout="row" fxLayoutAlign="center">
+          Current Streak
+        </div>
+      </div>
+      <div fxLayout="column">
+        <div fxLayout="row" fxLayoutAlign="center">
+          <h1>{{state.maxStreak}}</h1>
+        </div>
+        <div fxLayout="row" fxLayoutAlign="center">
+          Current Streak
+        </div>
+      </div>
+    </div>
   </div>
-  <div fxLayout="row">
-    <span>4</span><span class="color" fxLayoutAlign="end" [fxFlex]="four.percentage == 0 ? 3 : four.percentage">{{four.total}}</span>
+  <mat-divider></mat-divider>
+  <div fxLayout="row" fxLayoutAlign="center">
+    <h2>Guess Distribution</h2>
   </div>
-  <div fxLayout="row">
-    <span>5</span><span class="color" fxLayoutAlign="end" [fxFlex]="five.percentage == 0 ? 3 : five.percentage">{{five.total}}</span>
+
+  <div fxLayout="row" class="distribution">
+    <span>1 </span><span class="color" fxLayoutAlign="end" [fxFlex]="one.percentage == 0 ? 3 : one.percentage">{{one.total}}</span>
   </div>
-  <div fxLayout="row">
-    <span>6</span><span class="color" fxLayoutAlign="end" [fxFlex]="six.percentage == 0 ? 3 : six.percentage">{{six.total}}</span>
+  <div fxLayout="row" class="distribution">
+    <span>2 </span><span class="color" fxLayoutAlign="end" [fxFlex]="two.percentage == 0 ? 3 : two.percentage">{{two.total}}</span>
+  </div>
+  <div fxLayout="row" class="distribution">
+    <span>3 </span><span class="color" fxLayoutAlign="end" [fxFlex]="three.percentage == 0 ? 3 : three.percentage">{{three.total}}</span>
+  </div>
+  <div fxLayout="row" class="distribution">
+    <span>4 </span><span class="color" fxLayoutAlign="end" [fxFlex]="four.percentage == 0 ? 3 : four.percentage">{{four.total}}</span>
+  </div>
+  <div fxLayout="row" class="distribution">
+    <span>5 </span><span class="color" fxLayoutAlign="end" [fxFlex]="five.percentage == 0 ? 3 : five.percentage">{{five.total}}</span>
+  </div>
+  <div fxLayout="row" class="distribution">
+    <span>6 </span>
+    <span class="color"
+          fxLayoutAlign="end"
+          [fxFlex]="six.percentage == 0 ? 3 : six.percentage">
+      {{six.total}}
+    </span>
+  </div>
+  <mat-divider></mat-divider>
+  <div fxLayout="row" fxLayoutAlign="space-around" *ngIf="result.completed">
+    <div fxLayout="column">
+
+        <h1>Next Cluevie</h1>
+        <h1>{{clock}}</h1>
+
+    </div>
+    <mat-divider vertical="true"></mat-divider>
+    <div fxLayout="column" fxLayoutAlign="center center">
+        <save-result></save-result>
+    </div>
   </div>
 </div>
