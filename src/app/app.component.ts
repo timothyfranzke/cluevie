@@ -43,13 +43,14 @@ export class AppComponent {
 
   showScore() {
     this._matDialog.open(StatisticsComponent, {
-      width: '60%',
+      width: '90vw',
       panelClass: 'dialog'
     } as MatDialogConfig);
   }
   showRules() {
     this._matDialog.open(IntroductionComponent, {
       width: '60%',
+
       panelClass: 'dialog'
     } as MatDialogConfig);
   }

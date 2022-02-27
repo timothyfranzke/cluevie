@@ -26,7 +26,7 @@ export class FinalScoreComponent implements OnInit {
         if (this.result.completed && !this.isDialogOpen) {
           this.isDialogOpen = true;
           this._matDialog.open(StatisticsComponent, {
-            width: '60%'
+            width: '90vw'
           } as MatDialogConfig)
             .afterClosed()
             .subscribe(() => {this.isDialogOpen = false;})
