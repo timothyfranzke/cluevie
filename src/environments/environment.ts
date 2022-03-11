@@ -13,7 +13,7 @@ export const environment = {
     appId: "1:507890081029:web:b8c43ba80bb66cd2c72b6c",
     measurementId: "G-RL9Z77WH22"
   },
-  quizTable: 'quizTest',
+  quizTable: 'quizzes',
   movieListUrl: 'https://media.cluevie.com/movies.json'
 };
 
