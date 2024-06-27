@@ -1,0 +1,23 @@
+<header>
+  <div class="content">
+    <div id="rules">
+      <a (click)="showRules()" class="clickable"><img src="assets/rules-icon.png" width="24" height="24" alt="Rules"></a>
+    </div><div id="logo">
+    <img src="assets/cluevie-icon.png" width="25" height="25" alt="Cluevie Logo"> Cluevie
+  </div><div id="stats">
+    <a (click)="showScore()" class="clickable"><img src="assets/stats-icon.png" width="22" height="20" alt="Stats"></a>
+  </div>
+  </div>
+</header>
+<section id="top">
+  <div class="content">
+    <quiz-details *ngIf="result.outcome != 0 && result.outcome != 1"></quiz-details>
+    <movie-search *ngIf="result.outcome != 0 && result.outcome != 1"></movie-search>
+    <final-score *ngIf="result.outcome == 0 || result.outcome == 1"></final-score>
+    <score-counter></score-counter>
+  </div>
+</section>
+<clues></clues>
+<guess></guess>
+
+

@@ -1,0 +1,9 @@
+<section id="clues">
+  <div class="content">
+    <reveal-button (clueRevealed)="addClue($event)"></reveal-button>
+    <div class="revealedClues" *ngIf="clues && clues.length > 0">
+      <h6>Revealed actor clues:</h6>
+      <clue-card *ngFor="let clue of clues;let i=index;" [clue]="clue" class="animate__animated animate__bounce"></clue-card>
+    </div>
+  </div>
+</section>

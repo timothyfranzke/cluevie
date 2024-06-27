@@ -1,0 +1,19 @@
+.year,.genre{
+  font-size:32px;
+  line-height: 38px;
+  text-transform: uppercase;
+  letter-spacing: -1px;
+  font-family: 'Oswald', sans-serif;
+  color:#4E4E4E;
+  vertical-align: top;
+}
+
+.year{
+  display: inline-block;
+  width: 25%;
+}
+
+.genre{
+  display: inline-block;
+  width: 75%;
+}

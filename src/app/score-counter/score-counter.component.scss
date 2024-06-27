@@ -1,0 +1,32 @@
+.dot {
+  height: 25px;
+  width: 25px;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.incorrect {
+  background-color: red;
+}
+
+.correct {
+  background-color: green;
+}
+
+.clue {
+  background-color: gray;
+}
+
+.scoreBox{
+  width:30px;
+  height: 30px;
+  display: inline-block;
+  margin: 0 5px;
+  border:1px solid #CBCBCB;
+  border-radius: 100%;
+}
+
+.score{
+  text-align: center;
+  margin-top: 20px;
+}
