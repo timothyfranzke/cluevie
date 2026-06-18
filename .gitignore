@@ -51,6 +51,14 @@ testem.log
 # Firebase
 .firebase
 
+# Secrets — never commit
+**/*firebase-adminsdk*.json
+**/serviceAccountKey*.json
+**/service-account*.json
+*.pem
+*.key
+*.p12
+
 # System Files
 .DS_Store
 Thumbs.db
