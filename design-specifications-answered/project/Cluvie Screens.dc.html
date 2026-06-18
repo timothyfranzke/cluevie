@@ -1,0 +1,603 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Shrikhand&family=Hanken+Grotesk:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;}
+body{margin:0;}
+@keyframes irisReveal{0%{clip-path:circle(0% at 50% 40%);opacity:.15}26%{clip-path:circle(150% at 50% 40%);opacity:1}86%{clip-path:circle(150% at 50% 40%);opacity:1}100%{clip-path:circle(0% at 50% 40%);opacity:.15}}
+</style>
+</helmet>
+<div style="width:max-content;min-width:100%;min-height:100vh;box-sizing:border-box;padding:56px;background:#E6E0D4;font-family:'Hanken Grotesk',sans-serif;">
+
+  <div style="max-width:780px;margin:0 0 60px 4px;">
+    <div style="font:600 12px 'Hanken Grotesk';letter-spacing:.22em;text-transform:uppercase;color:#9a917f;margin-bottom:14px;">Hi-fi mockups · iPhone 14 · 390pt</div>
+    <div style="font-family:'Shrikhand',serif;font-size:60px;line-height:.98;color:#7C1F2C;margin:0 0 18px;">Cluvie</div>
+    <p style="font-size:16px;line-height:1.6;color:#4a4338;margin:0 0 18px;max-width:680px;">A once-a-day movie-guessing game. Six actors revealed in reverse billing order — obscure character actor first, headliner last. Six points; every reveal and every wrong guess costs one. Name the film before you run out. Below: all six screens in the primary palette, a color study in the alternate palette, and a component &amp; token spec.</p>
+    <div style="display:flex;gap:10px;flex-wrap:wrap;">
+      <span style="font-size:13px;font-weight:600;color:#4a4338;background:#F3EAD9;border:1px solid #d8cab2;border-radius:999px;padding:7px 14px;">Display · Shrikhand</span>
+      <span style="font-size:13px;font-weight:600;color:#4a4338;background:#F3EAD9;border:1px solid #d8cab2;border-radius:999px;padding:7px 14px;">Body · Hanken Grotesk</span>
+      <span style="font-size:13px;font-weight:600;color:#4a4338;background:#F3EAD9;border:1px solid #d8cab2;border-radius:999px;padding:7px 14px;">Reveal · cinematic iris</span>
+      <span style="font-size:13px;font-weight:600;color:#4a4338;background:#F3EAD9;border:1px solid #d8cab2;border-radius:999px;padding:7px 14px;">Tone · NYT-Games clean</span>
+    </div>
+  </div>
+
+  <!-- ===================== ROW 1 : DIRECTION A — CORE LOOP ===================== -->
+  <div style="margin-bottom:76px;">
+    <div style="font:800 13px 'Hanken Grotesk';letter-spacing:.18em;text-transform:uppercase;color:#5b5347;margin:0 0 6px 4px;">The daily loop · Direction A — Burgundy &amp; Cream</div>
+    <div style="font-size:14px;color:#8a8273;margin:0 0 28px 4px;max-width:620px;">Active play, win, and the gentle loss. The six score slots are the shareable grid: gold ticket = clue spent, green = the winning guess, red = a wrong guess, empty = points to spare.</div>
+    <div style="display:flex;gap:48px;align-items:flex-start;">
+
+      <!-- ---------- ACTIVE GAME (A) ---------- -->
+      <div style="flex:none;width:390px;">
+        <div style="font:600 12px 'Hanken Grotesk';letter-spacing:.12em;text-transform:uppercase;color:#8a8273;margin:0 0 14px 4px;">1 · Active game</div>
+        <div style="--paper:#F3EAD9;--surface:#FCF7EC;--ink:#2B1517;--muted:#9C8978;--line:#E6D9C4;--accent:#7C1F2C;--accent-ink:#FBF3E8;--clue:#C8902F;--correct:#4F9A63;--incorrect:#CF4339;--slot-empty:#ECE1CD;width:390px;height:844px;border-radius:46px;background:var(--paper);color:var(--ink);overflow:hidden;display:flex;flex-direction:column;box-shadow:0 30px 70px -22px rgba(40,20,15,.45);position:relative;">
+
+          <div style="display:flex;justify-content:space-between;align-items:center;padding:15px 26px 4px;font-size:14px;font-weight:700;">
+            <span>9:41</span>
+            <span style="width:18px;height:11px;border:1.6px solid var(--ink);border-radius:3px;opacity:.85;"></span>
+          </div>
+
+          <div style="display:flex;justify-content:space-between;align-items:center;padding:8px 18px 12px;">
+            <span style="font-family:'Shrikhand',serif;font-size:27px;color:var(--accent);line-height:1;">Cluvie</span>
+            <div style="display:flex;gap:10px;">
+              <div style="width:38px;height:38px;border-radius:50%;border:1.6px solid var(--line);display:flex;align-items:center;justify-content:center;font-weight:800;font-size:16px;color:var(--muted);">?</div>
+              <div style="width:38px;height:38px;border-radius:50%;border:1.6px solid var(--line);display:flex;align-items:center;justify-content:center;color:var(--muted);">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><rect x="3" y="12" width="4" height="9" rx="1"/><rect x="10" y="6" width="4" height="15" rx="1"/><rect x="17" y="9" width="4" height="12" rx="1"/></svg>
+              </div>
+            </div>
+          </div>
+
+          <div style="text-align:center;font-size:12.5px;color:var(--muted);letter-spacing:.02em;padding:0 20px 14px;">Wed · Jun 18 2026 &nbsp;·&nbsp; No. 412 &nbsp;·&nbsp; from a list of comedy classics</div>
+
+          <div style="display:grid;grid-template-columns:repeat(6,1fr);gap:8px;padding:0 22px 16px;">
+            <div style="aspect-ratio:1;border-radius:11px;background:var(--clue);display:flex;align-items:center;justify-content:center;">
+              <svg width="22" height="22" viewBox="0 0 24 24"><rect x="3" y="6" width="18" height="12" rx="2.5" fill="#2B1517" opacity=".82"/><circle cx="3" cy="12" r="2.4" fill="var(--clue)"/><circle cx="21" cy="12" r="2.4" fill="var(--clue)"/><line x1="13" y1="8.5" x2="13" y2="15.5" stroke="var(--clue)" stroke-width="1.4" stroke-dasharray="2 2"/></svg>
+            </div>
+            <div style="aspect-ratio:1;border-radius:11px;background:var(--clue);display:flex;align-items:center;justify-content:center;">
+              <svg width="22" height="22" viewBox="0 0 24 24"><rect x="3" y="6" width="18" height="12" rx="2.5" fill="#2B1517" opacity=".82"/><circle cx="3" cy="12" r="2.4" fill="var(--clue)"/><circle cx="21" cy="12" r="2.4" fill="var(--clue)"/><line x1="13" y1="8.5" x2="13" y2="15.5" stroke="var(--clue)" stroke-width="1.4" stroke-dasharray="2 2"/></svg>
+            </div>
+            <div style="aspect-ratio:1;border-radius:11px;background:var(--incorrect);display:flex;align-items:center;justify-content:center;">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3.2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg>
+            </div>
+            <div style="aspect-ratio:1;border-radius:11px;background:var(--slot-empty);border:1.5px solid var(--line);"></div>
+            <div style="aspect-ratio:1;border-radius:11px;background:var(--slot-empty);border:1.5px solid var(--line);"></div>
+            <div style="aspect-ratio:1;border-radius:11px;background:var(--slot-empty);border:1.5px solid var(--line);"></div>
+          </div>
+
+          <div style="flex:1;overflow:hidden;padding:4px 20px 0;display:flex;flex-direction:column;gap:12px;">
+            <div style="display:flex;gap:14px;align-items:center;padding:15px;background:var(--surface);border:1px solid var(--line);border-radius:18px;animation:irisReveal 4.6s ease-in-out infinite;box-shadow:0 8px 20px -12px rgba(40,20,15,.4);">
+              <div style="width:62px;height:62px;border-radius:50%;background:var(--slot-empty);color:var(--muted);flex:none;overflow:hidden;display:flex;align-items:flex-end;justify-content:center;">
+                <svg viewBox="0 0 48 48" width="100%" height="100%"><circle cx="24" cy="18" r="9" fill="currentColor"/><path d="M8 46c0-9.5 7.2-15.5 16-15.5S40 36.5 40 46z" fill="currentColor"/></svg>
+              </div>
+              <div style="flex:1;">
+                <div style="font:700 12px 'Hanken Grotesk';letter-spacing:.12em;text-transform:uppercase;color:var(--accent);margin-bottom:3px;">Clue 2 of 6</div>
+                <div style="font-size:18px;font-weight:700;line-height:1.15;">Annie Potts</div>
+                <div style="font-size:13.5px;color:var(--muted);">as Janine Melnitz</div>
+              </div>
+            </div>
+            <div style="display:flex;gap:14px;align-items:center;padding:15px;background:var(--surface);border:1px solid var(--line);border-radius:18px;">
+              <div style="width:62px;height:62px;border-radius:50%;background:var(--slot-empty);color:var(--muted);flex:none;overflow:hidden;display:flex;align-items:flex-end;justify-content:center;">
+                <svg viewBox="0 0 48 48" width="100%" height="100%"><circle cx="24" cy="18" r="9" fill="currentColor"/><path d="M8 46c0-9.5 7.2-15.5 16-15.5S40 36.5 40 46z" fill="currentColor"/></svg>
+              </div>
+              <div style="flex:1;">
+                <div style="font:700 12px 'Hanken Grotesk';letter-spacing:.12em;text-transform:uppercase;color:var(--accent);margin-bottom:3px;">Clue 1 of 6</div>
+                <div style="font-size:18px;font-weight:700;line-height:1.15;">William Atherton</div>
+                <div style="font-size:13.5px;color:var(--muted);">as Walter Peck</div>
+              </div>
+            </div>
+          </div>
+
+          <div style="padding:14px 18px 24px;border-top:1px solid var(--line);background:var(--paper);">
+            <button style="width:100%;padding:16px;border-radius:16px;background:var(--accent);color:var(--accent-ink);font-family:'Hanken Grotesk';font-weight:800;font-size:16.5px;border:none;display:flex;justify-content:center;align-items:center;gap:10px;cursor:pointer;margin-bottom:12px;">
+              Reveal next clue
+              <span style="font-size:12px;font-weight:700;background:rgba(251,243,232,.18);border-radius:999px;padding:3px 9px;">−1 point</span>
+            </button>
+            <div style="position:relative;">
+              <div style="position:absolute;bottom:calc(100% + 8px);left:0;right:0;background:var(--surface);border:1px solid var(--line);border-radius:14px;box-shadow:0 16px 36px -16px rgba(40,20,15,.5);overflow:hidden;">
+                <div style="display:flex;align-items:center;gap:11px;padding:11px 14px;background:rgba(124,31,44,.06);">
+                  <div style="width:26px;height:37px;border-radius:3px;background:repeating-linear-gradient(135deg,#d8cab2,#d8cab2 4px,#e6d9c4 4px,#e6d9c4 8px);flex:none;"></div>
+                  <div style="flex:1;"><div style="font-size:15px;font-weight:600;">Ghostbusters</div><div style="font-size:12px;color:var(--muted);">1984</div></div>
+                </div>
+                <div style="display:flex;align-items:center;gap:11px;padding:11px 14px;border-top:1px solid var(--line);">
+                  <div style="width:26px;height:37px;border-radius:3px;background:repeating-linear-gradient(135deg,#d8cab2,#d8cab2 4px,#e6d9c4 4px,#e6d9c4 8px);flex:none;"></div>
+                  <div style="flex:1;"><div style="font-size:15px;font-weight:600;">Ghostbusters II</div><div style="font-size:12px;color:var(--muted);">1989</div></div>
+                </div>
+                <div style="display:flex;align-items:center;gap:11px;padding:11px 14px;border-top:1px solid var(--line);">
+                  <div style="width:26px;height:37px;border-radius:3px;background:repeating-linear-gradient(135deg,#d8cab2,#d8cab2 4px,#e6d9c4 4px,#e6d9c4 8px);flex:none;"></div>
+                  <div style="flex:1;"><div style="font-size:15px;font-weight:600;">Ghostbusters: Afterlife</div><div style="font-size:12px;color:var(--muted);">2021</div></div>
+                </div>
+              </div>
+              <div style="display:flex;align-items:center;background:var(--surface);border:1.5px solid var(--accent);border-radius:14px;padding:0 6px 0 16px;">
+                <input value="Ghost" readonly style="flex:1;border:none;background:transparent;outline:none;font-family:'Hanken Grotesk';font-size:16px;color:var(--ink);padding:15px 0;" />
+                <div style="width:40px;height:40px;border-radius:11px;background:var(--accent);color:var(--accent-ink);display:flex;align-items:center;justify-content:center;flex:none;">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- ---------- WIN (A) ---------- -->
+      <div style="flex:none;width:390px;">
+        <div style="font:600 12px 'Hanken Grotesk';letter-spacing:.12em;text-transform:uppercase;color:#8a8273;margin:0 0 14px 4px;">2 · Win</div>
+        <div style="--paper:#F3EAD9;--surface:#FCF7EC;--ink:#2B1517;--muted:#9C8978;--line:#E6D9C4;--accent:#7C1F2C;--accent-ink:#FBF3E8;--clue:#C8902F;--correct:#4F9A63;--incorrect:#CF4339;--slot-empty:#ECE1CD;width:390px;min-height:844px;border-radius:46px;background:var(--paper);color:var(--ink);overflow:hidden;display:flex;flex-direction:column;box-shadow:0 30px 70px -22px rgba(40,20,15,.45);">
+
+          <div style="display:flex;justify-content:space-between;align-items:center;padding:15px 26px 4px;font-size:14px;font-weight:700;">
+            <span>9:41</span><span style="width:18px;height:11px;border:1.6px solid var(--ink);border-radius:3px;opacity:.85;"></span>
+          </div>
+          <div style="display:flex;justify-content:space-between;align-items:center;padding:8px 18px 6px;">
+            <span style="font-family:'Shrikhand',serif;font-size:23px;color:var(--accent);">Cluvie</span>
+            <div style="display:flex;gap:10px;">
+              <div style="width:36px;height:36px;border-radius:50%;border:1.6px solid var(--line);display:flex;align-items:center;justify-content:center;font-weight:800;font-size:15px;color:var(--muted);">?</div>
+              <div style="width:36px;height:36px;border-radius:50%;border:1.6px solid var(--line);display:flex;align-items:center;justify-content:center;color:var(--muted);"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><rect x="3" y="12" width="4" height="9" rx="1"/><rect x="10" y="6" width="4" height="15" rx="1"/><rect x="17" y="9" width="4" height="12" rx="1"/></svg></div>
+            </div>
+          </div>
+
+          <div style="padding:14px 24px 28px;display:flex;flex-direction:column;align-items:center;">
+            <div style="font:700 12px 'Hanken Grotesk';letter-spacing:.2em;text-transform:uppercase;color:var(--correct);margin-bottom:6px;">Solved</div>
+            <div style="font-family:'Shrikhand',serif;font-size:46px;line-height:.95;color:var(--accent);margin-bottom:8px;">Got it!</div>
+            <div style="font-size:14px;color:var(--muted);text-align:center;margin-bottom:20px;">Nailed it with <b style="color:var(--ink);">3 points</b> to spare.</div>
+
+            <div style="display:grid;grid-template-columns:repeat(6,1fr);gap:7px;width:100%;margin-bottom:7px;">
+              <div style="aspect-ratio:1;border-radius:10px;background:var(--clue);display:flex;align-items:center;justify-content:center;"><svg width="20" height="20" viewBox="0 0 24 24"><rect x="3" y="6" width="18" height="12" rx="2.5" fill="#2B1517" opacity=".82"/><circle cx="3" cy="12" r="2.4" fill="var(--clue)"/><circle cx="21" cy="12" r="2.4" fill="var(--clue)"/></svg></div>
+              <div style="aspect-ratio:1;border-radius:10px;background:var(--clue);display:flex;align-items:center;justify-content:center;"><svg width="20" height="20" viewBox="0 0 24 24"><rect x="3" y="6" width="18" height="12" rx="2.5" fill="#2B1517" opacity=".82"/><circle cx="3" cy="12" r="2.4" fill="var(--clue)"/><circle cx="21" cy="12" r="2.4" fill="var(--clue)"/></svg></div>
+              <div style="aspect-ratio:1;border-radius:10px;background:var(--clue);display:flex;align-items:center;justify-content:center;"><svg width="20" height="20" viewBox="0 0 24 24"><rect x="3" y="6" width="18" height="12" rx="2.5" fill="#2B1517" opacity=".82"/><circle cx="3" cy="12" r="2.4" fill="var(--clue)"/><circle cx="21" cy="12" r="2.4" fill="var(--clue)"/></svg></div>
+              <div style="aspect-ratio:1;border-radius:10px;background:var(--correct);display:flex;align-items:center;justify-content:center;"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13l4 4L19 7"/></svg></div>
+              <div style="aspect-ratio:1;border-radius:10px;background:var(--slot-empty);border:1.5px solid var(--line);"></div>
+              <div style="aspect-ratio:1;border-radius:10px;background:var(--slot-empty);border:1.5px solid var(--line);"></div>
+            </div>
+            <div style="font-size:13px;font-weight:700;color:var(--muted);margin-bottom:22px;">3 / 6</div>
+
+            <div style="display:flex;gap:16px;align-items:center;width:100%;background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:14px;margin-bottom:20px;">
+              <div style="width:84px;height:120px;border-radius:6px;flex:none;background:repeating-linear-gradient(135deg,#d8cab2,#d8cab2 6px,#e6d9c4 6px,#e6d9c4 12px);display:flex;align-items:flex-end;justify-content:center;padding-bottom:8px;"><span style="font:600 9px ui-monospace,monospace;color:#7a6f5c;letter-spacing:.05em;">POSTER</span></div>
+              <div style="flex:1;">
+                <div style="font-family:'Shrikhand',serif;font-size:25px;line-height:1.02;margin-bottom:8px;">Ghostbusters</div>
+                <div style="font-size:13.5px;color:var(--muted);">1984</div>
+                <div style="font-size:13.5px;color:var(--muted);">Comedy · Fantasy</div>
+              </div>
+            </div>
+
+            <div style="width:100%;margin-bottom:22px;">
+              <div style="font:700 11px 'Hanken Grotesk';letter-spacing:.16em;text-transform:uppercase;color:var(--muted);margin-bottom:10px;">The full billing</div>
+              <div style="display:flex;flex-direction:column;gap:7px;">
+                <div style="display:flex;align-items:center;gap:10px;font-size:14px;"><span style="width:26px;color:var(--muted);font-size:11px;font-weight:700;">06</span><span style="width:30px;height:30px;border-radius:50%;background:var(--slot-empty);color:var(--muted);overflow:hidden;display:flex;align-items:flex-end;justify-content:center;flex:none;"><svg viewBox="0 0 48 48" width="100%" height="100%"><circle cx="24" cy="18" r="9" fill="currentColor"/><path d="M8 46c0-9.5 7.2-15.5 16-15.5S40 36.5 40 46z" fill="currentColor"/></svg></span><span style="font-weight:700;">Bill Murray</span><span style="color:var(--muted);">Venkman</span></div>
+                <div style="display:flex;align-items:center;gap:10px;font-size:14px;"><span style="width:26px;color:var(--muted);font-size:11px;font-weight:700;">05</span><span style="width:30px;height:30px;border-radius:50%;background:var(--slot-empty);color:var(--muted);overflow:hidden;display:flex;align-items:flex-end;justify-content:center;flex:none;"><svg viewBox="0 0 48 48" width="100%" height="100%"><circle cx="24" cy="18" r="9" fill="currentColor"/><path d="M8 46c0-9.5 7.2-15.5 16-15.5S40 36.5 40 46z" fill="currentColor"/></svg></span><span style="font-weight:700;">Dan Aykroyd</span><span style="color:var(--muted);">Stantz</span></div>
+                <div style="display:flex;align-items:center;gap:10px;font-size:14px;"><span style="width:26px;color:var(--muted);font-size:11px;font-weight:700;">04</span><span style="width:30px;height:30px;border-radius:50%;background:var(--slot-empty);color:var(--muted);overflow:hidden;display:flex;align-items:flex-end;justify-content:center;flex:none;"><svg viewBox="0 0 48 48" width="100%" height="100%"><circle cx="24" cy="18" r="9" fill="currentColor"/><path d="M8 46c0-9.5 7.2-15.5 16-15.5S40 36.5 40 46z" fill="currentColor"/></svg></span><span style="font-weight:700;">Harold Ramis</span><span style="color:var(--muted);">Spengler</span></div>
+                <div style="display:flex;align-items:center;gap:10px;font-size:14px;opacity:.62;"><span style="width:26px;color:var(--muted);font-size:11px;font-weight:700;">03</span><span style="width:30px;height:30px;border-radius:50%;background:var(--clue);color:#fff;overflow:hidden;display:flex;align-items:flex-end;justify-content:center;flex:none;"><svg viewBox="0 0 48 48" width="100%" height="100%"><circle cx="24" cy="18" r="9" fill="currentColor"/><path d="M8 46c0-9.5 7.2-15.5 16-15.5S40 36.5 40 46z" fill="currentColor"/></svg></span><span style="font-weight:700;">Ernie Hudson</span><span style="color:var(--muted);">Zeddemore</span></div>
+                <div style="display:flex;align-items:center;gap:10px;font-size:14px;opacity:.62;"><span style="width:26px;color:var(--muted);font-size:11px;font-weight:700;">02</span><span style="width:30px;height:30px;border-radius:50%;background:var(--clue);color:#fff;overflow:hidden;display:flex;align-items:flex-end;justify-content:center;flex:none;"><svg viewBox="0 0 48 48" width="100%" height="100%"><circle cx="24" cy="18" r="9" fill="currentColor"/><path d="M8 46c0-9.5 7.2-15.5 16-15.5S40 36.5 40 46z" fill="currentColor"/></svg></span><span style="font-weight:700;">Annie Potts</span><span style="color:var(--muted);">Melnitz</span></div>
+                <div style="display:flex;align-items:center;gap:10px;font-size:14px;opacity:.62;"><span style="width:26px;color:var(--muted);font-size:11px;font-weight:700;">01</span><span style="width:30px;height:30px;border-radius:50%;background:var(--clue);color:#fff;overflow:hidden;display:flex;align-items:flex-end;justify-content:center;flex:none;"><svg viewBox="0 0 48 48" width="100%" height="100%"><circle cx="24" cy="18" r="9" fill="currentColor"/><path d="M8 46c0-9.5 7.2-15.5 16-15.5S40 36.5 40 46z" fill="currentColor"/></svg></span><span style="font-weight:700;">William Atherton</span><span style="color:var(--muted);">Peck</span></div>
+              </div>
+            </div>
+
+            <button style="width:100%;padding:16px;border-radius:16px;background:var(--accent);color:var(--accent-ink);font-family:'Hanken Grotesk';font-weight:800;font-size:16.5px;border:none;display:flex;justify-content:center;align-items:center;gap:9px;cursor:pointer;margin-bottom:14px;">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="M8.6 13.5l6.8 4M15.4 6.5l-6.8 4"/></svg>
+              Share result
+            </button>
+            <a style="font-size:14.5px;font-weight:700;color:var(--accent);text-decoration:none;">See your stats →</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- ---------- LOSE (A) ---------- -->
+      <div style="flex:none;width:390px;">
+        <div style="font:600 12px 'Hanken Grotesk';letter-spacing:.12em;text-transform:uppercase;color:#8a8273;margin:0 0 14px 4px;">3 · Out of points</div>
+        <div style="--paper:#F3EAD9;--surface:#FCF7EC;--ink:#2B1517;--muted:#9C8978;--line:#E6D9C4;--accent:#7C1F2C;--accent-ink:#FBF3E8;--clue:#C8902F;--correct:#4F9A63;--incorrect:#CF4339;--slot-empty:#ECE1CD;width:390px;min-height:844px;border-radius:46px;background:var(--paper);color:var(--ink);overflow:hidden;display:flex;flex-direction:column;box-shadow:0 30px 70px -22px rgba(40,20,15,.45);">
+
+          <div style="display:flex;justify-content:space-between;align-items:center;padding:15px 26px 4px;font-size:14px;font-weight:700;">
+            <span>9:41</span><span style="width:18px;height:11px;border:1.6px solid var(--ink);border-radius:3px;opacity:.85;"></span>
+          </div>
+          <div style="display:flex;justify-content:space-between;align-items:center;padding:8px 18px 6px;">
+            <span style="font-family:'Shrikhand',serif;font-size:23px;color:var(--accent);">Cluvie</span>
+            <div style="display:flex;gap:10px;">
+              <div style="width:36px;height:36px;border-radius:50%;border:1.6px solid var(--line);display:flex;align-items:center;justify-content:center;font-weight:800;font-size:15px;color:var(--muted);">?</div>
+              <div style="width:36px;height:36px;border-radius:50%;border:1.6px solid var(--line);display:flex;align-items:center;justify-content:center;color:var(--muted);"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><rect x="3" y="12" width="4" height="9" rx="1"/><rect x="10" y="6" width="4" height="15" rx="1"/><rect x="17" y="9" width="4" height="12" rx="1"/></svg></div>
+            </div>
+          </div>
+
+          <div style="padding:14px 24px 28px;display:flex;flex-direction:column;align-items:center;">
+            <div style="font:700 12px 'Hanken Grotesk';letter-spacing:.2em;text-transform:uppercase;color:var(--muted);margin-bottom:6px;">Better luck</div>
+            <div style="font-family:'Shrikhand',serif;font-size:38px;line-height:.98;color:var(--ink);text-align:center;margin-bottom:8px;">Out of points</div>
+            <div style="font-size:14px;color:var(--muted);text-align:center;margin-bottom:20px;">No worries — a fresh one lands tomorrow.</div>
+
+            <div style="display:grid;grid-template-columns:repeat(6,1fr);gap:7px;width:100%;margin-bottom:7px;">
+              <div style="aspect-ratio:1;border-radius:10px;background:var(--clue);display:flex;align-items:center;justify-content:center;"><svg width="20" height="20" viewBox="0 0 24 24"><rect x="3" y="6" width="18" height="12" rx="2.5" fill="#2B1517" opacity=".82"/><circle cx="3" cy="12" r="2.4" fill="var(--clue)"/><circle cx="21" cy="12" r="2.4" fill="var(--clue)"/></svg></div>
+              <div style="aspect-ratio:1;border-radius:10px;background:var(--clue);display:flex;align-items:center;justify-content:center;"><svg width="20" height="20" viewBox="0 0 24 24"><rect x="3" y="6" width="18" height="12" rx="2.5" fill="#2B1517" opacity=".82"/><circle cx="3" cy="12" r="2.4" fill="var(--clue)"/><circle cx="21" cy="12" r="2.4" fill="var(--clue)"/></svg></div>
+              <div style="aspect-ratio:1;border-radius:10px;background:var(--incorrect);display:flex;align-items:center;justify-content:center;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3.2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></div>
+              <div style="aspect-ratio:1;border-radius:10px;background:var(--clue);display:flex;align-items:center;justify-content:center;"><svg width="20" height="20" viewBox="0 0 24 24"><rect x="3" y="6" width="18" height="12" rx="2.5" fill="#2B1517" opacity=".82"/><circle cx="3" cy="12" r="2.4" fill="var(--clue)"/><circle cx="21" cy="12" r="2.4" fill="var(--clue)"/></svg></div>
+              <div style="aspect-ratio:1;border-radius:10px;background:var(--clue);display:flex;align-items:center;justify-content:center;"><svg width="20" height="20" viewBox="0 0 24 24"><rect x="3" y="6" width="18" height="12" rx="2.5" fill="#2B1517" opacity=".82"/><circle cx="3" cy="12" r="2.4" fill="var(--clue)"/><circle cx="21" cy="12" r="2.4" fill="var(--clue)"/></svg></div>
+              <div style="aspect-ratio:1;border-radius:10px;background:var(--incorrect);display:flex;align-items:center;justify-content:center;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3.2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></div>
+            </div>
+            <div style="font-size:13px;font-weight:700;color:var(--incorrect);margin-bottom:22px;">X / 6</div>
+
+            <div style="display:flex;gap:16px;align-items:center;width:100%;background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:14px;margin-bottom:18px;">
+              <div style="width:84px;height:120px;border-radius:6px;flex:none;background:repeating-linear-gradient(135deg,#d8cab2,#d8cab2 6px,#e6d9c4 6px,#e6d9c4 12px);display:flex;align-items:flex-end;justify-content:center;padding-bottom:8px;"><span style="font:600 9px ui-monospace,monospace;color:#7a6f5c;letter-spacing:.05em;">POSTER</span></div>
+              <div style="flex:1;">
+                <div style="font:700 11px 'Hanken Grotesk';letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:6px;">It was</div>
+                <div style="font-family:'Shrikhand',serif;font-size:25px;line-height:1.02;margin-bottom:8px;">Ghostbusters</div>
+                <div style="font-size:13.5px;color:var(--muted);">1984 · Comedy · Fantasy</div>
+              </div>
+            </div>
+
+            <div style="width:100%;margin-bottom:20px;">
+              <div style="font:700 11px 'Hanken Grotesk';letter-spacing:.16em;text-transform:uppercase;color:var(--muted);margin-bottom:10px;">The full billing</div>
+              <div style="display:flex;flex-direction:column;gap:7px;">
+                <div style="display:flex;align-items:center;gap:10px;font-size:14px;"><span style="width:26px;color:var(--muted);font-size:11px;font-weight:700;">06</span><span style="width:30px;height:30px;border-radius:50%;background:var(--slot-empty);color:var(--muted);overflow:hidden;display:flex;align-items:flex-end;justify-content:center;flex:none;"><svg viewBox="0 0 48 48" width="100%" height="100%"><circle cx="24" cy="18" r="9" fill="currentColor"/><path d="M8 46c0-9.5 7.2-15.5 16-15.5S40 36.5 40 46z" fill="currentColor"/></svg></span><span style="font-weight:700;">Bill Murray</span><span style="color:var(--muted);">Venkman</span></div>
+                <div style="display:flex;align-items:center;gap:10px;font-size:14px;"><span style="width:26px;color:var(--muted);font-size:11px;font-weight:700;">05</span><span style="width:30px;height:30px;border-radius:50%;background:var(--slot-empty);color:var(--muted);overflow:hidden;display:flex;align-items:flex-end;justify-content:center;flex:none;"><svg viewBox="0 0 48 48" width="100%" height="100%"><circle cx="24" cy="18" r="9" fill="currentColor"/><path d="M8 46c0-9.5 7.2-15.5 16-15.5S40 36.5 40 46z" fill="currentColor"/></svg></span><span style="font-weight:700;">Dan Aykroyd</span><span style="color:var(--muted);">Stantz</span></div>
+                <div style="display:flex;align-items:center;gap:10px;font-size:14px;"><span style="width:26px;color:var(--muted);font-size:11px;font-weight:700;">04</span><span style="width:30px;height:30px;border-radius:50%;background:var(--slot-empty);color:var(--muted);overflow:hidden;display:flex;align-items:flex-end;justify-content:center;flex:none;"><svg viewBox="0 0 48 48" width="100%" height="100%"><circle cx="24" cy="18" r="9" fill="currentColor"/><path d="M8 46c0-9.5 7.2-15.5 16-15.5S40 36.5 40 46z" fill="currentColor"/></svg></span><span style="font-weight:700;">Harold Ramis</span><span style="color:var(--muted);">Spengler</span></div>
+                <div style="display:flex;align-items:center;gap:10px;font-size:14px;"><span style="width:26px;color:var(--muted);font-size:11px;font-weight:700;">03</span><span style="width:30px;height:30px;border-radius:50%;background:var(--clue);color:#fff;overflow:hidden;display:flex;align-items:flex-end;justify-content:center;flex:none;"><svg viewBox="0 0 48 48" width="100%" height="100%"><circle cx="24" cy="18" r="9" fill="currentColor"/><path d="M8 46c0-9.5 7.2-15.5 16-15.5S40 36.5 40 46z" fill="currentColor"/></svg></span><span style="font-weight:700;">Ernie Hudson</span><span style="color:var(--muted);">Zeddemore</span></div>
+                <div style="display:flex;align-items:center;gap:10px;font-size:14px;"><span style="width:26px;color:var(--muted);font-size:11px;font-weight:700;">02</span><span style="width:30px;height:30px;border-radius:50%;background:var(--clue);color:#fff;overflow:hidden;display:flex;align-items:flex-end;justify-content:center;flex:none;"><svg viewBox="0 0 48 48" width="100%" height="100%"><circle cx="24" cy="18" r="9" fill="currentColor"/><path d="M8 46c0-9.5 7.2-15.5 16-15.5S40 36.5 40 46z" fill="currentColor"/></svg></span><span style="font-weight:700;">Annie Potts</span><span style="color:var(--muted);">Melnitz</span></div>
+                <div style="display:flex;align-items:center;gap:10px;font-size:14px;"><span style="width:26px;color:var(--muted);font-size:11px;font-weight:700;">01</span><span style="width:30px;height:30px;border-radius:50%;background:var(--clue);color:#fff;overflow:hidden;display:flex;align-items:flex-end;justify-content:center;flex:none;"><svg viewBox="0 0 48 48" width="100%" height="100%"><circle cx="24" cy="18" r="9" fill="currentColor"/><path d="M8 46c0-9.5 7.2-15.5 16-15.5S40 36.5 40 46z" fill="currentColor"/></svg></span><span style="font-weight:700;">William Atherton</span><span style="color:var(--muted);">Peck</span></div>
+              </div>
+            </div>
+
+            <button style="width:100%;padding:16px;border-radius:16px;background:transparent;color:var(--accent);font-family:'Hanken Grotesk';font-weight:800;font-size:16.5px;border:1.6px solid var(--accent);display:flex;justify-content:center;align-items:center;gap:9px;cursor:pointer;margin-bottom:14px;">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="M8.6 13.5l6.8 4M15.4 6.5l-6.8 4"/></svg>
+              Share result
+            </button>
+            <a style="font-size:14.5px;font-weight:700;color:var(--accent);text-decoration:none;">See your stats →</a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ===================== ROW 2 : DIRECTION A — MODALS & RETURN ===================== -->
+  <div style="margin-bottom:76px;">
+    <div style="font:800 13px 'Hanken Grotesk';letter-spacing:.18em;text-transform:uppercase;color:#5b5347;margin:0 0 6px 4px;">Modals &amp; return · Direction A</div>
+    <div style="font-size:14px;color:#8a8273;margin:0 0 28px 4px;max-width:620px;">Stats and rules sit over a dimmed board. Returning the same day skips straight to the frozen result with a countdown to the next midnight-UTC drop.</div>
+    <div style="display:flex;gap:48px;align-items:flex-start;">
+
+      <!-- ---------- STATS MODAL (A) ---------- -->
+      <div style="flex:none;width:390px;">
+        <div style="font:600 12px 'Hanken Grotesk';letter-spacing:.12em;text-transform:uppercase;color:#8a8273;margin:0 0 14px 4px;">4 · Stats</div>
+        <div style="--paper:#F3EAD9;--surface:#FCF7EC;--ink:#2B1517;--muted:#9C8978;--line:#E6D9C4;--accent:#7C1F2C;--accent-ink:#FBF3E8;--clue:#C8902F;--correct:#4F9A63;--incorrect:#CF4339;--slot-empty:#ECE1CD;width:390px;height:844px;border-radius:46px;background:var(--paper);overflow:hidden;position:relative;box-shadow:0 30px 70px -22px rgba(40,20,15,.45);">
+          <div style="position:absolute;inset:0;background:rgba(43,21,23,.42);backdrop-filter:blur(2px);"></div>
+          <div style="position:absolute;left:14px;right:14px;bottom:14px;background:var(--paper);border-radius:34px;padding:26px 24px 28px;color:var(--ink);box-shadow:0 -10px 40px -10px rgba(40,20,15,.4);">
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:22px;">
+              <div style="font-family:'Shrikhand',serif;font-size:26px;color:var(--ink);">Statistics</div>
+              <div style="width:34px;height:34px;border-radius:50%;background:var(--slot-empty);display:flex;align-items:center;justify-content:center;color:var(--muted);"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></div>
+            </div>
+            <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:26px;text-align:center;">
+              <div><div style="font-family:'Shrikhand',serif;font-size:30px;color:var(--accent);line-height:1;">14</div><div style="font-size:11px;color:var(--muted);margin-top:6px;line-height:1.2;">Current<br>streak</div></div>
+              <div><div style="font-family:'Shrikhand',serif;font-size:30px;color:var(--accent);line-height:1;">31</div><div style="font-size:11px;color:var(--muted);margin-top:6px;line-height:1.2;">Max<br>streak</div></div>
+              <div><div style="font-family:'Shrikhand',serif;font-size:30px;color:var(--accent);line-height:1;">96</div><div style="font-size:11px;color:var(--muted);margin-top:6px;line-height:1.2;">Played</div></div>
+              <div><div style="font-family:'Shrikhand',serif;font-size:30px;color:var(--accent);line-height:1;">88<span style="font-size:16px;">%</span></div><div style="font-size:11px;color:var(--muted);margin-top:6px;line-height:1.2;">Win rate</div></div>
+            </div>
+            <div style="font:700 11px 'Hanken Grotesk';letter-spacing:.16em;text-transform:uppercase;color:var(--muted);margin-bottom:14px;">Guess distribution</div>
+            <div style="display:flex;flex-direction:column;gap:9px;margin-bottom:22px;">
+              <div style="display:flex;align-items:center;gap:10px;font-size:13px;"><span style="width:14px;font-weight:700;color:var(--muted);">6</span><div style="height:22px;width:14%;background:var(--slot-empty);border-radius:5px;"></div><span style="font-size:12px;color:var(--muted);">4</span></div>
+              <div style="display:flex;align-items:center;gap:10px;font-size:13px;"><span style="width:14px;font-weight:700;color:var(--muted);">5</span><div style="height:22px;width:34%;background:var(--slot-empty);border-radius:5px;"></div><span style="font-size:12px;color:var(--muted);">12</span></div>
+              <div style="display:flex;align-items:center;gap:10px;font-size:13px;"><span style="width:14px;font-weight:700;color:var(--muted);">4</span><div style="height:22px;width:58%;background:var(--slot-empty);border-radius:5px;"></div><span style="font-size:12px;color:var(--muted);">21</span></div>
+              <div style="display:flex;align-items:center;gap:10px;font-size:13px;"><span style="width:14px;font-weight:700;color:var(--accent);">3</span><div style="height:22px;width:78%;background:var(--accent);border-radius:5px;display:flex;align-items:center;justify-content:flex-end;padding-right:8px;"><span style="font-size:12px;font-weight:700;color:var(--accent-ink);">28 · today</span></div></div>
+              <div style="display:flex;align-items:center;gap:10px;font-size:13px;"><span style="width:14px;font-weight:700;color:var(--muted);">2</span><div style="height:22px;width:42%;background:var(--slot-empty);border-radius:5px;"></div><span style="font-size:12px;color:var(--muted);">15</span></div>
+              <div style="display:flex;align-items:center;gap:10px;font-size:13px;"><span style="width:14px;font-weight:700;color:var(--muted);">1</span><div style="height:22px;width:10%;background:var(--slot-empty);border-radius:5px;"></div><span style="font-size:12px;color:var(--muted);">3</span></div>
+            </div>
+            <div style="text-align:center;font-size:13px;color:var(--muted);border-top:1px solid var(--line);padding-top:16px;">Next movie in <b style="color:var(--ink);font-variant-numeric:tabular-nums;">07 : 42 : 15</b></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ---------- RULES MODAL (A) ---------- -->
+      <div style="flex:none;width:390px;">
+        <div style="font:600 12px 'Hanken Grotesk';letter-spacing:.12em;text-transform:uppercase;color:#8a8273;margin:0 0 14px 4px;">5 · How to play</div>
+        <div style="--paper:#F3EAD9;--surface:#FCF7EC;--ink:#2B1517;--muted:#9C8978;--line:#E6D9C4;--accent:#7C1F2C;--accent-ink:#FBF3E8;--clue:#C8902F;--correct:#4F9A63;--incorrect:#CF4339;--slot-empty:#ECE1CD;width:390px;height:844px;border-radius:46px;background:var(--paper);overflow:hidden;position:relative;box-shadow:0 30px 70px -22px rgba(40,20,15,.45);">
+          <div style="position:absolute;inset:0;background:rgba(43,21,23,.42);backdrop-filter:blur(2px);"></div>
+          <div style="position:absolute;left:14px;right:14px;bottom:14px;background:var(--paper);border-radius:34px;padding:28px 24px;color:var(--ink);box-shadow:0 -10px 40px -10px rgba(40,20,15,.4);">
+            <div style="font-family:'Shrikhand',serif;font-size:30px;color:var(--accent);line-height:1;margin-bottom:6px;">How to play</div>
+            <div style="font-size:14px;color:var(--muted);margin-bottom:24px;">One mystery movie. Every day. Everyone gets the same one.</div>
+
+            <div style="display:flex;flex-direction:column;gap:18px;margin-bottom:22px;">
+              <div style="display:flex;gap:14px;align-items:flex-start;"><span style="width:30px;height:30px;border-radius:50%;background:var(--accent);color:var(--accent-ink);font-weight:800;font-size:14px;display:flex;align-items:center;justify-content:center;flex:none;">1</span><div style="font-size:14.5px;line-height:1.45;"><b>Six clues, reverse billing.</b> The cast reveals from the most obscure character actor up to the headliner.</div></div>
+              <div style="display:flex;gap:14px;align-items:flex-start;"><span style="width:30px;height:30px;border-radius:50%;background:var(--accent);color:var(--accent-ink);font-weight:800;font-size:14px;display:flex;align-items:center;justify-content:center;flex:none;">2</span><div style="font-size:14.5px;line-height:1.45;"><b>You start with six points.</b> Revealing a clue costs one. A wrong guess costs one.</div></div>
+              <div style="display:flex;gap:14px;align-items:flex-start;"><span style="width:30px;height:30px;border-radius:50%;background:var(--accent);color:var(--accent-ink);font-weight:800;font-size:14px;display:flex;align-items:center;justify-content:center;flex:none;">3</span><div style="font-size:14.5px;line-height:1.45;"><b>Guess any time.</b> Name the film right and your remaining points are your score. The fewer clues, the better.</div></div>
+            </div>
+
+            <div style="background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:14px 16px;margin-bottom:24px;">
+              <div style="font:700 11px 'Hanken Grotesk';letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:11px;">Your grid</div>
+              <div style="display:flex;flex-direction:column;gap:9px;font-size:13px;">
+                <div style="display:flex;align-items:center;gap:10px;"><span style="width:22px;height:22px;border-radius:6px;background:var(--clue);flex:none;"></span>Clue revealed</div>
+                <div style="display:flex;align-items:center;gap:10px;"><span style="width:22px;height:22px;border-radius:6px;background:var(--correct);flex:none;"></span>The winning guess</div>
+                <div style="display:flex;align-items:center;gap:10px;"><span style="width:22px;height:22px;border-radius:6px;background:var(--incorrect);flex:none;"></span>A wrong guess</div>
+                <div style="display:flex;align-items:center;gap:10px;"><span style="width:22px;height:22px;border-radius:6px;background:var(--slot-empty);border:1.5px solid var(--line);flex:none;"></span>Points to spare</div>
+              </div>
+            </div>
+
+            <button style="width:100%;padding:16px;border-radius:16px;background:var(--accent);color:var(--accent-ink);font-family:'Hanken Grotesk';font-weight:800;font-size:16.5px;border:none;cursor:pointer;margin-bottom:11px;">Got it — let's play</button>
+            <div style="text-align:center;"><a style="font-size:14px;font-weight:600;color:var(--muted);text-decoration:none;">I'll wait for tomorrow</a></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ---------- ALREADY PLAYED (A) ---------- -->
+      <div style="flex:none;width:390px;">
+        <div style="font:600 12px 'Hanken Grotesk';letter-spacing:.12em;text-transform:uppercase;color:#8a8273;margin:0 0 14px 4px;">6 · Already played today</div>
+        <div style="--paper:#F3EAD9;--surface:#FCF7EC;--ink:#2B1517;--muted:#9C8978;--line:#E6D9C4;--accent:#7C1F2C;--accent-ink:#FBF3E8;--clue:#C8902F;--correct:#4F9A63;--incorrect:#CF4339;--slot-empty:#ECE1CD;width:390px;height:844px;border-radius:46px;background:var(--paper);color:var(--ink);overflow:hidden;display:flex;flex-direction:column;box-shadow:0 30px 70px -22px rgba(40,20,15,.45);">
+          <div style="display:flex;justify-content:space-between;align-items:center;padding:15px 26px 4px;font-size:14px;font-weight:700;"><span>9:41</span><span style="width:18px;height:11px;border:1.6px solid var(--ink);border-radius:3px;opacity:.85;"></span></div>
+          <div style="display:flex;justify-content:space-between;align-items:center;padding:8px 18px 6px;">
+            <span style="font-family:'Shrikhand',serif;font-size:23px;color:var(--accent);">Cluvie</span>
+            <div style="display:flex;gap:10px;">
+              <div style="width:36px;height:36px;border-radius:50%;border:1.6px solid var(--line);display:flex;align-items:center;justify-content:center;font-weight:800;font-size:15px;color:var(--muted);">?</div>
+              <div style="width:36px;height:36px;border-radius:50%;border:1.6px solid var(--line);display:flex;align-items:center;justify-content:center;color:var(--muted);"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><rect x="3" y="12" width="4" height="9" rx="1"/><rect x="10" y="6" width="4" height="15" rx="1"/><rect x="17" y="9" width="4" height="12" rx="1"/></svg></div>
+            </div>
+          </div>
+
+          <div style="padding:18px 24px;display:flex;flex-direction:column;align-items:center;">
+            <div style="width:100%;background:var(--accent);color:var(--accent-ink);border-radius:18px;padding:16px 18px;display:flex;align-items:center;gap:13px;margin-bottom:24px;">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
+              <div style="flex:1;"><div style="font-weight:800;font-size:15px;">You've played today</div><div style="font-size:13px;opacity:.85;">Next movie in 07 : 42 : 15</div></div>
+            </div>
+
+            <div style="font-family:'Shrikhand',serif;font-size:36px;line-height:.95;color:var(--accent);margin-bottom:6px;">Got it!</div>
+            <div style="font-size:14px;color:var(--muted);text-align:center;margin-bottom:20px;">Solved with <b style="color:var(--ink);">3 points</b> to spare.</div>
+
+            <div style="display:grid;grid-template-columns:repeat(6,1fr);gap:7px;width:100%;margin-bottom:7px;">
+              <div style="aspect-ratio:1;border-radius:10px;background:var(--clue);display:flex;align-items:center;justify-content:center;"><svg width="20" height="20" viewBox="0 0 24 24"><rect x="3" y="6" width="18" height="12" rx="2.5" fill="#2B1517" opacity=".82"/><circle cx="3" cy="12" r="2.4" fill="var(--clue)"/><circle cx="21" cy="12" r="2.4" fill="var(--clue)"/></svg></div>
+              <div style="aspect-ratio:1;border-radius:10px;background:var(--clue);display:flex;align-items:center;justify-content:center;"><svg width="20" height="20" viewBox="0 0 24 24"><rect x="3" y="6" width="18" height="12" rx="2.5" fill="#2B1517" opacity=".82"/><circle cx="3" cy="12" r="2.4" fill="var(--clue)"/><circle cx="21" cy="12" r="2.4" fill="var(--clue)"/></svg></div>
+              <div style="aspect-ratio:1;border-radius:10px;background:var(--clue);display:flex;align-items:center;justify-content:center;"><svg width="20" height="20" viewBox="0 0 24 24"><rect x="3" y="6" width="18" height="12" rx="2.5" fill="#2B1517" opacity=".82"/><circle cx="3" cy="12" r="2.4" fill="var(--clue)"/><circle cx="21" cy="12" r="2.4" fill="var(--clue)"/></svg></div>
+              <div style="aspect-ratio:1;border-radius:10px;background:var(--correct);display:flex;align-items:center;justify-content:center;"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13l4 4L19 7"/></svg></div>
+              <div style="aspect-ratio:1;border-radius:10px;background:var(--slot-empty);border:1.5px solid var(--line);"></div>
+              <div style="aspect-ratio:1;border-radius:10px;background:var(--slot-empty);border:1.5px solid var(--line);"></div>
+            </div>
+            <div style="font-size:13px;font-weight:700;color:var(--muted);margin-bottom:22px;">3 / 6</div>
+
+            <div style="display:flex;gap:16px;align-items:center;width:100%;background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:14px;margin-bottom:22px;">
+              <div style="width:70px;height:100px;border-radius:6px;flex:none;background:repeating-linear-gradient(135deg,#d8cab2,#d8cab2 6px,#e6d9c4 6px,#e6d9c4 12px);display:flex;align-items:flex-end;justify-content:center;padding-bottom:7px;"><span style="font:600 8px ui-monospace,monospace;color:#7a6f5c;">POSTER</span></div>
+              <div style="flex:1;"><div style="font-family:'Shrikhand',serif;font-size:24px;line-height:1.02;margin-bottom:6px;">Ghostbusters</div><div style="font-size:13px;color:var(--muted);">1984 · Comedy · Fantasy</div></div>
+            </div>
+
+            <button style="width:100%;padding:16px;border-radius:16px;background:var(--accent);color:var(--accent-ink);font-family:'Hanken Grotesk';font-weight:800;font-size:16.5px;border:none;display:flex;justify-content:center;align-items:center;gap:9px;cursor:pointer;margin-bottom:14px;">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="M8.6 13.5l6.8 4M15.4 6.5l-6.8 4"/></svg>
+              Share result
+            </button>
+            <a style="font-size:14.5px;font-weight:700;color:var(--accent);text-decoration:none;">See your stats →</a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ===================== ROW 3 : DIRECTION B — COLOR STUDY ===================== -->
+  <div style="margin-bottom:76px;">
+    <div style="font:800 13px 'Hanken Grotesk';letter-spacing:.18em;text-transform:uppercase;color:#5b5347;margin:0 0 6px 4px;">Color study · Direction B — Theater Navy &amp; Amber</div>
+    <div style="font-size:14px;color:#8a8273;margin:0 0 28px 4px;max-width:620px;">The same screens in the dark "movie-theater" palette: deep navy with a warm amber accent. Identical layout and type — only the tokens change, so switching directions is a one-line swap.</div>
+    <div style="display:flex;gap:48px;align-items:flex-start;">
+
+      <!-- ---------- ACTIVE GAME (B) ---------- -->
+      <div style="flex:none;width:390px;">
+        <div style="font:600 12px 'Hanken Grotesk';letter-spacing:.12em;text-transform:uppercase;color:#8a8273;margin:0 0 14px 4px;">Active game</div>
+        <div style="--paper:#111A2C;--surface:#1B2540;--ink:#F2EBDA;--muted:#8E97AD;--line:#2A3553;--accent:#E5A93E;--accent-ink:#1A1205;--clue:#E5A93E;--correct:#5FB87C;--incorrect:#E36358;--slot-empty:#27324F;width:390px;height:844px;border-radius:46px;background:var(--paper);color:var(--ink);overflow:hidden;display:flex;flex-direction:column;box-shadow:0 30px 70px -22px rgba(10,16,30,.6);position:relative;">
+          <div style="display:flex;justify-content:space-between;align-items:center;padding:15px 26px 4px;font-size:14px;font-weight:700;"><span>9:41</span><span style="width:18px;height:11px;border:1.6px solid var(--ink);border-radius:3px;opacity:.85;"></span></div>
+          <div style="display:flex;justify-content:space-between;align-items:center;padding:8px 18px 12px;">
+            <span style="font-family:'Shrikhand',serif;font-size:27px;color:var(--accent);line-height:1;">Cluvie</span>
+            <div style="display:flex;gap:10px;">
+              <div style="width:38px;height:38px;border-radius:50%;border:1.6px solid var(--line);display:flex;align-items:center;justify-content:center;font-weight:800;font-size:16px;color:var(--muted);">?</div>
+              <div style="width:38px;height:38px;border-radius:50%;border:1.6px solid var(--line);display:flex;align-items:center;justify-content:center;color:var(--muted);"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><rect x="3" y="12" width="4" height="9" rx="1"/><rect x="10" y="6" width="4" height="15" rx="1"/><rect x="17" y="9" width="4" height="12" rx="1"/></svg></div>
+            </div>
+          </div>
+          <div style="text-align:center;font-size:12.5px;color:var(--muted);padding:0 20px 14px;">Wed · Jun 18 2026 &nbsp;·&nbsp; No. 412 &nbsp;·&nbsp; from a list of comedy classics</div>
+          <div style="display:grid;grid-template-columns:repeat(6,1fr);gap:8px;padding:0 22px 16px;">
+            <div style="aspect-ratio:1;border-radius:11px;background:var(--clue);display:flex;align-items:center;justify-content:center;"><svg width="22" height="22" viewBox="0 0 24 24"><rect x="3" y="6" width="18" height="12" rx="2.5" fill="#111A2C" opacity=".85"/><circle cx="3" cy="12" r="2.4" fill="var(--clue)"/><circle cx="21" cy="12" r="2.4" fill="var(--clue)"/><line x1="13" y1="8.5" x2="13" y2="15.5" stroke="var(--clue)" stroke-width="1.4" stroke-dasharray="2 2"/></svg></div>
+            <div style="aspect-ratio:1;border-radius:11px;background:var(--clue);display:flex;align-items:center;justify-content:center;"><svg width="22" height="22" viewBox="0 0 24 24"><rect x="3" y="6" width="18" height="12" rx="2.5" fill="#111A2C" opacity=".85"/><circle cx="3" cy="12" r="2.4" fill="var(--clue)"/><circle cx="21" cy="12" r="2.4" fill="var(--clue)"/><line x1="13" y1="8.5" x2="13" y2="15.5" stroke="var(--clue)" stroke-width="1.4" stroke-dasharray="2 2"/></svg></div>
+            <div style="aspect-ratio:1;border-radius:11px;background:var(--incorrect);display:flex;align-items:center;justify-content:center;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3.2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></div>
+            <div style="aspect-ratio:1;border-radius:11px;background:var(--slot-empty);"></div>
+            <div style="aspect-ratio:1;border-radius:11px;background:var(--slot-empty);"></div>
+            <div style="aspect-ratio:1;border-radius:11px;background:var(--slot-empty);"></div>
+          </div>
+          <div style="flex:1;overflow:hidden;padding:4px 20px 0;display:flex;flex-direction:column;gap:12px;">
+            <div style="display:flex;gap:14px;align-items:center;padding:15px;background:var(--surface);border:1px solid var(--line);border-radius:18px;animation:irisReveal 4.6s ease-in-out infinite;">
+              <div style="width:62px;height:62px;border-radius:50%;background:var(--slot-empty);color:var(--muted);flex:none;overflow:hidden;display:flex;align-items:flex-end;justify-content:center;"><svg viewBox="0 0 48 48" width="100%" height="100%"><circle cx="24" cy="18" r="9" fill="currentColor"/><path d="M8 46c0-9.5 7.2-15.5 16-15.5S40 36.5 40 46z" fill="currentColor"/></svg></div>
+              <div style="flex:1;"><div style="font:700 12px 'Hanken Grotesk';letter-spacing:.12em;text-transform:uppercase;color:var(--accent);margin-bottom:3px;">Clue 2 of 6</div><div style="font-size:18px;font-weight:700;">Annie Potts</div><div style="font-size:13.5px;color:var(--muted);">as Janine Melnitz</div></div>
+            </div>
+            <div style="display:flex;gap:14px;align-items:center;padding:15px;background:var(--surface);border:1px solid var(--line);border-radius:18px;">
+              <div style="width:62px;height:62px;border-radius:50%;background:var(--slot-empty);color:var(--muted);flex:none;overflow:hidden;display:flex;align-items:flex-end;justify-content:center;"><svg viewBox="0 0 48 48" width="100%" height="100%"><circle cx="24" cy="18" r="9" fill="currentColor"/><path d="M8 46c0-9.5 7.2-15.5 16-15.5S40 36.5 40 46z" fill="currentColor"/></svg></div>
+              <div style="flex:1;"><div style="font:700 12px 'Hanken Grotesk';letter-spacing:.12em;text-transform:uppercase;color:var(--accent);margin-bottom:3px;">Clue 1 of 6</div><div style="font-size:18px;font-weight:700;">William Atherton</div><div style="font-size:13.5px;color:var(--muted);">as Walter Peck</div></div>
+            </div>
+          </div>
+          <div style="padding:14px 18px 24px;border-top:1px solid var(--line);">
+            <button style="width:100%;padding:16px;border-radius:16px;background:var(--accent);color:var(--accent-ink);font-family:'Hanken Grotesk';font-weight:800;font-size:16.5px;border:none;display:flex;justify-content:center;align-items:center;gap:10px;cursor:pointer;margin-bottom:12px;">Reveal next clue <span style="font-size:12px;font-weight:700;background:rgba(26,18,5,.16);border-radius:999px;padding:3px 9px;">−1 point</span></button>
+            <div style="display:flex;align-items:center;background:var(--surface);border:1.5px solid var(--accent);border-radius:14px;padding:0 6px 0 16px;">
+              <input value="Ghost" readonly style="flex:1;border:none;background:transparent;outline:none;font-family:'Hanken Grotesk';font-size:16px;color:var(--ink);padding:15px 0;" />
+              <div style="width:40px;height:40px;border-radius:11px;background:var(--accent);color:var(--accent-ink);display:flex;align-items:center;justify-content:center;flex:none;"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ---------- WIN (B) ---------- -->
+      <div style="flex:none;width:390px;">
+        <div style="font:600 12px 'Hanken Grotesk';letter-spacing:.12em;text-transform:uppercase;color:#8a8273;margin:0 0 14px 4px;">Win</div>
+        <div style="--paper:#111A2C;--surface:#1B2540;--ink:#F2EBDA;--muted:#8E97AD;--line:#2A3553;--accent:#E5A93E;--accent-ink:#1A1205;--clue:#E5A93E;--correct:#5FB87C;--incorrect:#E36358;--slot-empty:#27324F;width:390px;min-height:844px;border-radius:46px;background:var(--paper);color:var(--ink);overflow:hidden;display:flex;flex-direction:column;box-shadow:0 30px 70px -22px rgba(10,16,30,.6);">
+          <div style="display:flex;justify-content:space-between;align-items:center;padding:15px 26px 4px;font-size:14px;font-weight:700;"><span>9:41</span><span style="width:18px;height:11px;border:1.6px solid var(--ink);border-radius:3px;opacity:.85;"></span></div>
+          <div style="display:flex;justify-content:space-between;align-items:center;padding:8px 18px 6px;">
+            <span style="font-family:'Shrikhand',serif;font-size:23px;color:var(--accent);">Cluvie</span>
+            <div style="display:flex;gap:10px;"><div style="width:36px;height:36px;border-radius:50%;border:1.6px solid var(--line);display:flex;align-items:center;justify-content:center;font-weight:800;font-size:15px;color:var(--muted);">?</div><div style="width:36px;height:36px;border-radius:50%;border:1.6px solid var(--line);display:flex;align-items:center;justify-content:center;color:var(--muted);"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><rect x="3" y="12" width="4" height="9" rx="1"/><rect x="10" y="6" width="4" height="15" rx="1"/><rect x="17" y="9" width="4" height="12" rx="1"/></svg></div></div>
+          </div>
+          <div style="padding:14px 24px 28px;display:flex;flex-direction:column;align-items:center;">
+            <div style="font:700 12px 'Hanken Grotesk';letter-spacing:.2em;text-transform:uppercase;color:var(--correct);margin-bottom:6px;">Solved</div>
+            <div style="font-family:'Shrikhand',serif;font-size:46px;line-height:.95;color:var(--accent);margin-bottom:8px;">Got it!</div>
+            <div style="font-size:14px;color:var(--muted);text-align:center;margin-bottom:20px;">Nailed it with <b style="color:var(--ink);">3 points</b> to spare.</div>
+            <div style="display:grid;grid-template-columns:repeat(6,1fr);gap:7px;width:100%;margin-bottom:7px;">
+              <div style="aspect-ratio:1;border-radius:10px;background:var(--clue);display:flex;align-items:center;justify-content:center;"><svg width="20" height="20" viewBox="0 0 24 24"><rect x="3" y="6" width="18" height="12" rx="2.5" fill="#111A2C" opacity=".85"/><circle cx="3" cy="12" r="2.4" fill="var(--clue)"/><circle cx="21" cy="12" r="2.4" fill="var(--clue)"/></svg></div>
+              <div style="aspect-ratio:1;border-radius:10px;background:var(--clue);display:flex;align-items:center;justify-content:center;"><svg width="20" height="20" viewBox="0 0 24 24"><rect x="3" y="6" width="18" height="12" rx="2.5" fill="#111A2C" opacity=".85"/><circle cx="3" cy="12" r="2.4" fill="var(--clue)"/><circle cx="21" cy="12" r="2.4" fill="var(--clue)"/></svg></div>
+              <div style="aspect-ratio:1;border-radius:10px;background:var(--clue);display:flex;align-items:center;justify-content:center;"><svg width="20" height="20" viewBox="0 0 24 24"><rect x="3" y="6" width="18" height="12" rx="2.5" fill="#111A2C" opacity=".85"/><circle cx="3" cy="12" r="2.4" fill="var(--clue)"/><circle cx="21" cy="12" r="2.4" fill="var(--clue)"/></svg></div>
+              <div style="aspect-ratio:1;border-radius:10px;background:var(--correct);display:flex;align-items:center;justify-content:center;"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13l4 4L19 7"/></svg></div>
+              <div style="aspect-ratio:1;border-radius:10px;background:var(--slot-empty);"></div>
+              <div style="aspect-ratio:1;border-radius:10px;background:var(--slot-empty);"></div>
+            </div>
+            <div style="font-size:13px;font-weight:700;color:var(--muted);margin-bottom:22px;">3 / 6</div>
+            <div style="display:flex;gap:16px;align-items:center;width:100%;background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:14px;margin-bottom:20px;">
+              <div style="width:84px;height:120px;border-radius:6px;flex:none;background:repeating-linear-gradient(135deg,#2a3553,#2a3553 6px,#34406a 6px,#34406a 12px);display:flex;align-items:flex-end;justify-content:center;padding-bottom:8px;"><span style="font:600 9px ui-monospace,monospace;color:#8E97AD;">POSTER</span></div>
+              <div style="flex:1;"><div style="font-family:'Shrikhand',serif;font-size:25px;line-height:1.02;margin-bottom:8px;">Ghostbusters</div><div style="font-size:13.5px;color:var(--muted);">1984</div><div style="font-size:13.5px;color:var(--muted);">Comedy · Fantasy</div></div>
+            </div>
+            <div style="width:100%;margin-bottom:22px;">
+              <div style="font:700 11px 'Hanken Grotesk';letter-spacing:.16em;text-transform:uppercase;color:var(--muted);margin-bottom:10px;">The full billing</div>
+              <div style="display:flex;flex-direction:column;gap:7px;">
+                <div style="display:flex;align-items:center;gap:10px;font-size:14px;"><span style="width:26px;color:var(--muted);font-size:11px;font-weight:700;">06</span><span style="width:30px;height:30px;border-radius:50%;background:var(--slot-empty);color:var(--muted);overflow:hidden;display:flex;align-items:flex-end;justify-content:center;flex:none;"><svg viewBox="0 0 48 48" width="100%" height="100%"><circle cx="24" cy="18" r="9" fill="currentColor"/><path d="M8 46c0-9.5 7.2-15.5 16-15.5S40 36.5 40 46z" fill="currentColor"/></svg></span><span style="font-weight:700;">Bill Murray</span><span style="color:var(--muted);">Venkman</span></div>
+                <div style="display:flex;align-items:center;gap:10px;font-size:14px;"><span style="width:26px;color:var(--muted);font-size:11px;font-weight:700;">05</span><span style="width:30px;height:30px;border-radius:50%;background:var(--slot-empty);color:var(--muted);overflow:hidden;display:flex;align-items:flex-end;justify-content:center;flex:none;"><svg viewBox="0 0 48 48" width="100%" height="100%"><circle cx="24" cy="18" r="9" fill="currentColor"/><path d="M8 46c0-9.5 7.2-15.5 16-15.5S40 36.5 40 46z" fill="currentColor"/></svg></span><span style="font-weight:700;">Dan Aykroyd</span><span style="color:var(--muted);">Stantz</span></div>
+                <div style="display:flex;align-items:center;gap:10px;font-size:14px;opacity:.62;"><span style="width:26px;color:var(--muted);font-size:11px;font-weight:700;">03</span><span style="width:30px;height:30px;border-radius:50%;background:var(--clue);color:#111A2C;overflow:hidden;display:flex;align-items:flex-end;justify-content:center;flex:none;"><svg viewBox="0 0 48 48" width="100%" height="100%"><circle cx="24" cy="18" r="9" fill="currentColor"/><path d="M8 46c0-9.5 7.2-15.5 16-15.5S40 36.5 40 46z" fill="currentColor"/></svg></span><span style="font-weight:700;">Ernie Hudson</span><span style="color:var(--muted);">Zeddemore</span></div>
+                <div style="display:flex;align-items:center;gap:10px;font-size:14px;opacity:.62;"><span style="width:26px;color:var(--muted);font-size:11px;font-weight:700;">01</span><span style="width:30px;height:30px;border-radius:50%;background:var(--clue);color:#111A2C;overflow:hidden;display:flex;align-items:flex-end;justify-content:center;flex:none;"><svg viewBox="0 0 48 48" width="100%" height="100%"><circle cx="24" cy="18" r="9" fill="currentColor"/><path d="M8 46c0-9.5 7.2-15.5 16-15.5S40 36.5 40 46z" fill="currentColor"/></svg></span><span style="font-weight:700;">William Atherton</span><span style="color:var(--muted);">Peck</span></div>
+              </div>
+            </div>
+            <button style="width:100%;padding:16px;border-radius:16px;background:var(--accent);color:var(--accent-ink);font-family:'Hanken Grotesk';font-weight:800;font-size:16.5px;border:none;display:flex;justify-content:center;align-items:center;gap:9px;cursor:pointer;margin-bottom:14px;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="M8.6 13.5l6.8 4M15.4 6.5l-6.8 4"/></svg> Share result</button>
+            <a style="font-size:14.5px;font-weight:700;color:var(--accent);text-decoration:none;">See your stats →</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- ---------- STATS (B) ---------- -->
+      <div style="flex:none;width:390px;">
+        <div style="font:600 12px 'Hanken Grotesk';letter-spacing:.12em;text-transform:uppercase;color:#8a8273;margin:0 0 14px 4px;">Stats</div>
+        <div style="--paper:#111A2C;--surface:#1B2540;--ink:#F2EBDA;--muted:#8E97AD;--line:#2A3553;--accent:#E5A93E;--accent-ink:#1A1205;--clue:#E5A93E;--correct:#5FB87C;--incorrect:#E36358;--slot-empty:#27324F;width:390px;height:844px;border-radius:46px;background:var(--paper);overflow:hidden;position:relative;box-shadow:0 30px 70px -22px rgba(10,16,30,.6);">
+          <div style="position:absolute;inset:0;background:rgba(5,9,18,.55);"></div>
+          <div style="position:absolute;left:14px;right:14px;bottom:14px;background:var(--surface);border:1px solid var(--line);border-radius:34px;padding:26px 24px 28px;color:var(--ink);">
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:22px;">
+              <div style="font-family:'Shrikhand',serif;font-size:26px;color:var(--accent);">Statistics</div>
+              <div style="width:34px;height:34px;border-radius:50%;background:var(--slot-empty);display:flex;align-items:center;justify-content:center;color:var(--muted);"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></div>
+            </div>
+            <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:26px;text-align:center;">
+              <div><div style="font-family:'Shrikhand',serif;font-size:30px;color:var(--accent);line-height:1;">14</div><div style="font-size:11px;color:var(--muted);margin-top:6px;line-height:1.2;">Current<br>streak</div></div>
+              <div><div style="font-family:'Shrikhand',serif;font-size:30px;color:var(--accent);line-height:1;">31</div><div style="font-size:11px;color:var(--muted);margin-top:6px;line-height:1.2;">Max<br>streak</div></div>
+              <div><div style="font-family:'Shrikhand',serif;font-size:30px;color:var(--accent);line-height:1;">96</div><div style="font-size:11px;color:var(--muted);margin-top:6px;line-height:1.2;">Played</div></div>
+              <div><div style="font-family:'Shrikhand',serif;font-size:30px;color:var(--accent);line-height:1;">88<span style="font-size:16px;">%</span></div><div style="font-size:11px;color:var(--muted);margin-top:6px;line-height:1.2;">Win rate</div></div>
+            </div>
+            <div style="font:700 11px 'Hanken Grotesk';letter-spacing:.16em;text-transform:uppercase;color:var(--muted);margin-bottom:14px;">Guess distribution</div>
+            <div style="display:flex;flex-direction:column;gap:9px;margin-bottom:22px;">
+              <div style="display:flex;align-items:center;gap:10px;font-size:13px;"><span style="width:14px;font-weight:700;color:var(--muted);">6</span><div style="height:22px;width:14%;background:var(--slot-empty);border-radius:5px;"></div><span style="font-size:12px;color:var(--muted);">4</span></div>
+              <div style="display:flex;align-items:center;gap:10px;font-size:13px;"><span style="width:14px;font-weight:700;color:var(--muted);">5</span><div style="height:22px;width:34%;background:var(--slot-empty);border-radius:5px;"></div><span style="font-size:12px;color:var(--muted);">12</span></div>
+              <div style="display:flex;align-items:center;gap:10px;font-size:13px;"><span style="width:14px;font-weight:700;color:var(--muted);">4</span><div style="height:22px;width:58%;background:var(--slot-empty);border-radius:5px;"></div><span style="font-size:12px;color:var(--muted);">21</span></div>
+              <div style="display:flex;align-items:center;gap:10px;font-size:13px;"><span style="width:14px;font-weight:700;color:var(--accent);">3</span><div style="height:22px;width:78%;background:var(--accent);border-radius:5px;display:flex;align-items:center;justify-content:flex-end;padding-right:8px;"><span style="font-size:12px;font-weight:700;color:var(--accent-ink);">28 · today</span></div></div>
+              <div style="display:flex;align-items:center;gap:10px;font-size:13px;"><span style="width:14px;font-weight:700;color:var(--muted);">2</span><div style="height:22px;width:42%;background:var(--slot-empty);border-radius:5px;"></div><span style="font-size:12px;color:var(--muted);">15</span></div>
+              <div style="display:flex;align-items:center;gap:10px;font-size:13px;"><span style="width:14px;font-weight:700;color:var(--muted);">1</span><div style="height:22px;width:10%;background:var(--slot-empty);border-radius:5px;"></div><span style="font-size:12px;color:var(--muted);">3</span></div>
+            </div>
+            <div style="text-align:center;font-size:13px;color:var(--muted);border-top:1px solid var(--line);padding-top:16px;">Next movie in <b style="color:var(--ink);font-variant-numeric:tabular-nums;">07 : 42 : 15</b></div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ===================== ROW 4 : COMPONENT & TOKEN SPEC ===================== -->
+  <div style="margin-bottom:24px;">
+    <div style="font:800 13px 'Hanken Grotesk';letter-spacing:.18em;text-transform:uppercase;color:#5b5347;margin:0 0 6px 4px;">Component &amp; token spec</div>
+    <div style="font-size:14px;color:#8a8273;margin:0 0 28px 4px;max-width:620px;">Everything the build needs: color tokens for both directions, the type and spacing scales, and every component in each state.</div>
+    <div style="display:flex;gap:40px;align-items:flex-start;color:#2B1517;">
+
+      <!-- ---------- TOKENS: COLOR ---------- -->
+      <div style="flex:none;width:430px;background:#FCF7EC;border-radius:18px;padding:28px;box-shadow:0 1px 3px rgba(0,0,0,.08);font-family:'Hanken Grotesk';">
+        <div style="font-family:'Shrikhand',serif;font-size:22px;color:#7C1F2C;margin-bottom:20px;">Color tokens</div>
+
+        <div style="font:700 11px 'Hanken Grotesk';letter-spacing:.14em;text-transform:uppercase;color:#9C8978;margin-bottom:12px;">A · Burgundy &amp; Cream</div>
+        <div style="display:flex;flex-direction:column;gap:8px;margin-bottom:24px;">
+          <div style="display:flex;align-items:center;gap:12px;"><span style="width:30px;height:30px;border-radius:8px;background:#F3EAD9;border:1px solid #E6D9C4;flex:none;"></span><span style="flex:1;font-size:13.5px;font-weight:600;">paper</span><span style="font:600 12px ui-monospace,monospace;color:#9C8978;">#F3EAD9</span></div>
+          <div style="display:flex;align-items:center;gap:12px;"><span style="width:30px;height:30px;border-radius:8px;background:#FCF7EC;border:1px solid #E6D9C4;flex:none;"></span><span style="flex:1;font-size:13.5px;font-weight:600;">surface</span><span style="font:600 12px ui-monospace,monospace;color:#9C8978;">#FCF7EC</span></div>
+          <div style="display:flex;align-items:center;gap:12px;"><span style="width:30px;height:30px;border-radius:8px;background:#2B1517;flex:none;"></span><span style="flex:1;font-size:13.5px;font-weight:600;">ink</span><span style="font:600 12px ui-monospace,monospace;color:#9C8978;">#2B1517</span></div>
+          <div style="display:flex;align-items:center;gap:12px;"><span style="width:30px;height:30px;border-radius:8px;background:#7C1F2C;flex:none;"></span><span style="flex:1;font-size:13.5px;font-weight:600;">accent</span><span style="font:600 12px ui-monospace,monospace;color:#9C8978;">#7C1F2C</span></div>
+          <div style="display:flex;align-items:center;gap:12px;"><span style="width:30px;height:30px;border-radius:8px;background:#C8902F;flex:none;"></span><span style="flex:1;font-size:13.5px;font-weight:600;">clue</span><span style="font:600 12px ui-monospace,monospace;color:#9C8978;">#C8902F</span></div>
+          <div style="display:flex;align-items:center;gap:12px;"><span style="width:30px;height:30px;border-radius:8px;background:#4F9A63;flex:none;"></span><span style="flex:1;font-size:13.5px;font-weight:600;">correct</span><span style="font:600 12px ui-monospace,monospace;color:#9C8978;">#4F9A63</span></div>
+          <div style="display:flex;align-items:center;gap:12px;"><span style="width:30px;height:30px;border-radius:8px;background:#CF4339;flex:none;"></span><span style="flex:1;font-size:13.5px;font-weight:600;">incorrect</span><span style="font:600 12px ui-monospace,monospace;color:#9C8978;">#CF4339</span></div>
+        </div>
+
+        <div style="font:700 11px 'Hanken Grotesk';letter-spacing:.14em;text-transform:uppercase;color:#9C8978;margin-bottom:12px;">B · Theater Navy &amp; Amber</div>
+        <div style="display:flex;gap:8px;">
+          <span style="flex:1;height:44px;border-radius:8px;background:#111A2C;"></span>
+          <span style="flex:1;height:44px;border-radius:8px;background:#1B2540;"></span>
+          <span style="flex:1;height:44px;border-radius:8px;background:#E5A93E;"></span>
+          <span style="flex:1;height:44px;border-radius:8px;background:#5FB87C;"></span>
+          <span style="flex:1;height:44px;border-radius:8px;background:#E36358;"></span>
+        </div>
+        <div style="display:flex;gap:8px;margin-top:6px;font:600 10px ui-monospace,monospace;color:#9C8978;text-align:center;">
+          <span style="flex:1;">paper</span><span style="flex:1;">surface</span><span style="flex:1;">accent</span><span style="flex:1;">correct</span><span style="flex:1;">wrong</span>
+        </div>
+      </div>
+
+      <!-- ---------- TOKENS: TYPE + SPACING ---------- -->
+      <div style="flex:none;width:430px;background:#FCF7EC;border-radius:18px;padding:28px;box-shadow:0 1px 3px rgba(0,0,0,.08);font-family:'Hanken Grotesk';">
+        <div style="font-family:'Shrikhand',serif;font-size:22px;color:#7C1F2C;margin-bottom:20px;">Type &amp; spacing</div>
+
+        <div style="font:700 11px 'Hanken Grotesk';letter-spacing:.14em;text-transform:uppercase;color:#9C8978;margin-bottom:12px;">Display · Shrikhand</div>
+        <div style="font-family:'Shrikhand',serif;color:#2B1517;line-height:1;margin-bottom:6px;">
+          <span style="font-size:40px;">Got it!</span>
+        </div>
+        <div style="font:600 12px ui-monospace,monospace;color:#9C8978;margin-bottom:22px;">Logo 27 · Headline 46 · Stat 30</div>
+
+        <div style="font:700 11px 'Hanken Grotesk';letter-spacing:.14em;text-transform:uppercase;color:#9C8978;margin-bottom:12px;">Body · Hanken Grotesk</div>
+        <div style="margin-bottom:22px;">
+          <div style="font-size:18px;font-weight:700;color:#2B1517;">Annie Potts <span style="font-weight:400;color:#9C8978;font-size:14px;">— 18 / 700 title</span></div>
+          <div style="font-size:14.5px;color:#2B1517;margin-top:3px;">Body copy &amp; rules — 14.5 / 400</div>
+          <div style="font:700 11px 'Hanken Grotesk';letter-spacing:.14em;text-transform:uppercase;color:#9C8978;margin-top:6px;">Eyebrow · 11 / 700 · .14em</div>
+        </div>
+
+        <div style="font:700 11px 'Hanken Grotesk';letter-spacing:.14em;text-transform:uppercase;color:#9C8978;margin-bottom:12px;">Spacing &amp; radii</div>
+        <div style="display:flex;align-items:flex-end;gap:8px;margin-bottom:8px;">
+          <span style="width:4px;height:4px;background:#7C1F2C;"></span>
+          <span style="width:8px;height:8px;background:#7C1F2C;"></span>
+          <span style="width:12px;height:12px;background:#7C1F2C;"></span>
+          <span style="width:16px;height:16px;background:#7C1F2C;"></span>
+          <span style="width:24px;height:24px;background:#7C1F2C;"></span>
+          <span style="width:32px;height:32px;background:#7C1F2C;"></span>
+        </div>
+        <div style="font:600 12px ui-monospace,monospace;color:#9C8978;margin-bottom:18px;">4 · 8 · 12 · 16 · 24 · 32</div>
+        <div style="display:flex;gap:10px;">
+          <span style="width:48px;height:34px;border:1.5px solid #7C1F2C;border-radius:10px;"></span>
+          <span style="width:48px;height:34px;border:1.5px solid #7C1F2C;border-radius:16px;"></span>
+          <span style="width:48px;height:34px;border:1.5px solid #7C1F2C;border-radius:46px;"></span>
+        </div>
+        <div style="font:600 12px ui-monospace,monospace;color:#9C8978;margin-top:6px;">radius · slot 10 · card 16-18 · phone 46</div>
+      </div>
+
+      <!-- ---------- COMPONENTS ---------- -->
+      <div style="flex:none;width:430px;background:#FCF7EC;border-radius:18px;padding:28px;box-shadow:0 1px 3px rgba(0,0,0,.08);font-family:'Hanken Grotesk';color:#2B1517;">
+        <div style="font-family:'Shrikhand',serif;font-size:22px;color:#7C1F2C;margin-bottom:20px;">Components</div>
+
+        <div style="font:700 11px 'Hanken Grotesk';letter-spacing:.14em;text-transform:uppercase;color:#9C8978;margin-bottom:12px;">Score slot · states</div>
+        <div style="display:flex;gap:14px;margin-bottom:24px;text-align:center;">
+          <div><div style="width:54px;height:54px;border-radius:12px;background:#ECE1CD;border:1.5px solid #E6D9C4;"></div><div style="font-size:11px;color:#9C8978;margin-top:6px;">empty</div></div>
+          <div><div style="width:54px;height:54px;border-radius:12px;background:#C8902F;display:flex;align-items:center;justify-content:center;"><svg width="26" height="26" viewBox="0 0 24 24"><rect x="3" y="6" width="18" height="12" rx="2.5" fill="#2B1517" opacity=".82"/><circle cx="3" cy="12" r="2.4" fill="#C8902F"/><circle cx="21" cy="12" r="2.4" fill="#C8902F"/><line x1="13" y1="8.5" x2="13" y2="15.5" stroke="#C8902F" stroke-width="1.4" stroke-dasharray="2 2"/></svg></div><div style="font-size:11px;color:#9C8978;margin-top:6px;">clue</div></div>
+          <div><div style="width:54px;height:54px;border-radius:12px;background:#4F9A63;display:flex;align-items:center;justify-content:center;"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13l4 4L19 7"/></svg></div><div style="font-size:11px;color:#9C8978;margin-top:6px;">correct</div></div>
+          <div><div style="width:54px;height:54px;border-radius:12px;background:#CF4339;display:flex;align-items:center;justify-content:center;"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3.2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></div><div style="font-size:11px;color:#9C8978;margin-top:6px;">wrong</div></div>
+        </div>
+
+        <div style="font:700 11px 'Hanken Grotesk';letter-spacing:.14em;text-transform:uppercase;color:#9C8978;margin-bottom:12px;">Clue card</div>
+        <div style="display:flex;gap:14px;align-items:center;padding:14px;background:#F3EAD9;border:1px solid #E6D9C4;border-radius:18px;margin-bottom:24px;">
+          <div style="width:58px;height:58px;border-radius:50%;background:#ECE1CD;color:#9C8978;flex:none;overflow:hidden;display:flex;align-items:flex-end;justify-content:center;"><svg viewBox="0 0 48 48" width="100%" height="100%"><circle cx="24" cy="18" r="9" fill="currentColor"/><path d="M8 46c0-9.5 7.2-15.5 16-15.5S40 36.5 40 46z" fill="currentColor"/></svg></div>
+          <div style="flex:1;"><div style="font:700 12px 'Hanken Grotesk';letter-spacing:.12em;text-transform:uppercase;color:#7C1F2C;margin-bottom:3px;">Clue 1 of 6</div><div style="font-size:18px;font-weight:700;">William Atherton</div><div style="font-size:13.5px;color:#9C8978;">as Walter Peck</div></div>
+        </div>
+
+        <div style="font:700 11px 'Hanken Grotesk';letter-spacing:.14em;text-transform:uppercase;color:#9C8978;margin-bottom:12px;">Guess input · autocomplete</div>
+        <div style="background:#fff;border:1px solid #E6D9C4;border-radius:14px;overflow:hidden;margin-bottom:10px;">
+          <div style="display:flex;align-items:center;gap:11px;padding:11px 14px;background:rgba(124,31,44,.06);"><div style="width:24px;height:34px;border-radius:3px;background:repeating-linear-gradient(135deg,#d8cab2,#d8cab2 4px,#e6d9c4 4px,#e6d9c4 8px);flex:none;"></div><div style="flex:1;"><div style="font-size:14.5px;font-weight:600;">Ghostbusters</div><div style="font-size:11.5px;color:#9C8978;">1984</div></div></div>
+          <div style="display:flex;align-items:center;gap:11px;padding:11px 14px;border-top:1px solid #E6D9C4;"><div style="width:24px;height:34px;border-radius:3px;background:repeating-linear-gradient(135deg,#d8cab2,#d8cab2 4px,#e6d9c4 4px,#e6d9c4 8px);flex:none;"></div><div style="flex:1;"><div style="font-size:14.5px;font-weight:600;">Ghostbusters II</div><div style="font-size:11.5px;color:#9C8978;">1989</div></div></div>
+        </div>
+        <div style="display:flex;align-items:center;background:#FCF7EC;border:1.5px solid #7C1F2C;border-radius:14px;padding:0 6px 0 16px;margin-bottom:14px;">
+          <span style="flex:1;font-size:16px;color:#2B1517;padding:14px 0;">Ghost<span style="opacity:.4;">|</span></span>
+          <div style="width:38px;height:38px;border-radius:11px;background:#7C1F2C;color:#FBF3E8;display:flex;align-items:center;justify-content:center;flex:none;"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
+        </div>
+
+        <div style="font:700 11px 'Hanken Grotesk';letter-spacing:.14em;text-transform:uppercase;color:#9C8978;margin-bottom:8px;">Empty / no match</div>
+        <div style="display:flex;align-items:center;gap:10px;background:#F3EAD9;border:1px dashed #d8cab2;border-radius:12px;padding:12px 14px;font-size:13.5px;color:#9C8978;">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#9C8978" stroke-width="2.2" stroke-linecap="round" style="flex:none;"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg> Hmm, that's not in our film list — check the spelling?
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+</div>
+</x-dc>
+</body>
+</html>

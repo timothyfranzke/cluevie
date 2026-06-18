@@ -40,6 +40,17 @@ yarn-error.log
 testem.log
 /typings
 
+# env
+.env
+.env.local
+.env.*.local
+
+# typescript incremental build
+*.tsbuildinfo
+
+# Firebase
+.firebase
+
 # System Files
 .DS_Store
 Thumbs.db
