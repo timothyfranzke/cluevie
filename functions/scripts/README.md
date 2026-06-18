@@ -74,6 +74,56 @@ Free, takes a couple of minutes:
 3. Pick "Developer," fill in a one-line description
 4. Use the v3 auth "API Key" string as `TMDB_API_KEY`
 
+---
+
+## create-quiz.mjs
+
+Create a daily quiz from a TMDB movie id. Builds 6 reverse-billed actor clues from the movie's credits, then writes the quiz doc keyed by date.
+
+```bash
+cd functions
+TMDB_API_KEY=xxxxxxxx node scripts/create-quiz.mjs 278                    # today
+TMDB_API_KEY=xxxxxxxx node scripts/create-quiz.mjs 278 --date 2026-07-01  # specific day
+TMDB_API_KEY=xxxxxxxx node scripts/create-quiz.mjs 278 --dry-run          # preview
+```
+
+### Flags
+
+- `--date YYYY-MM-DD` — day the quiz goes live (UTC midnight). Default: today.
+- `--number N` — display number ("No. N"). Default: highest existing `quizNumber` + 1.
+- `--dry-run` — print the resolved movie + clues without writing.
+
+### What it writes
+
+Doc id is the date (`YYYY-MM-DD`). Shape:
+
+```ts
+{
+  cluevieQuizId: "2026-07-01",
+  quizNumber: 412,
+  movieId: "278",
+  answerId: "278",          // matches movies/{id} for guess validation
+  title: "The Shawshank Redemption",
+  image: "https://image.tmdb.org/t/p/w500/...",
+  year: "1994",
+  genre: "Drama, Crime",
+  clues: [
+    { index: 0, name: "James Whitmore", avatar: "...", character: "Brooks Hatlen" },
+    // ...index 1..5, most obscure → headliner
+  ],
+  date: <Timestamp 2026-07-01 00:00:00 UTC>,
+  generatedAt: <server timestamp>
+}
+```
+
+### Tips
+
+- Aborts if fewer than 6 cast members have profile photos — pick a different movie or seed more cast data.
+- Warns if `movies/{tmdbId}` doesn't exist (players won't be able to type the answer in autocomplete). Reseed `movies` to fix.
+- Overwrites a quiz with the same date — handy for fixing mistakes; risky if you forget.
+
+---
+
 ### Authentication for Firestore
 
 Looks for credentials in this order:
