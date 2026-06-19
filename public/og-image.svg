@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#F3EAD9"/>
+      <stop offset="100%" stop-color="#EDE2CC"/>
+    </linearGradient>
+    <radialGradient id="spot" cx="50%" cy="40%" r="55%">
+      <stop offset="0%" stop-color="#FFF6E1" stop-opacity="0.55"/>
+      <stop offset="100%" stop-color="#FFF6E1" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  <rect width="1200" height="630" fill="url(#spot)"/>
+
+  <!-- inner marquee frame -->
+  <rect x="32" y="32" width="1136" height="566" rx="22" ry="22"
+    fill="none" stroke="#7C1F2C" stroke-width="2" stroke-opacity="0.18"/>
+  <rect x="42" y="42" width="1116" height="546" rx="14" ry="14"
+    fill="none" stroke="#7C1F2C" stroke-width="1" stroke-opacity="0.12"/>
+
+  <!-- eyebrow -->
+  <text x="600" y="138" text-anchor="middle"
+    font-family="Hanken Grotesk" font-weight="700" font-size="22"
+    letter-spacing="8" fill="#9C8978">DAILY MOVIE QUIZ · NO. 412</text>
+
+  <!-- wordmark -->
+  <text x="600" y="320" text-anchor="middle"
+    font-family="Shrikhand" font-size="220" fill="#7C1F2C">Cluevie</text>
+
+  <!-- score grid -->
+  
+        <rect x="267" y="410" width="96" height="96" rx="16" fill="#C8902F"/>
+        
+    <g transform="translate(315 458)">
+      <rect x="-30" y="-19" width="60" height="38" rx="8" fill="#2B1517" opacity="0.82"/>
+      <circle cx="-30" cy="0" r="6" fill="#C8902F"/>
+      <circle cx="30" cy="0" r="6" fill="#C8902F"/>
+      <line x1="3" y1="-12" x2="3" y2="12" stroke="#C8902F" stroke-width="2" stroke-dasharray="3 3"/>
+    </g>
+        <rect x="381" y="410" width="96" height="96" rx="16" fill="#C8902F"/>
+        
+    <g transform="translate(429 458)">
+      <rect x="-30" y="-19" width="60" height="38" rx="8" fill="#2B1517" opacity="0.82"/>
+      <circle cx="-30" cy="0" r="6" fill="#C8902F"/>
+      <circle cx="30" cy="0" r="6" fill="#C8902F"/>
+      <line x1="3" y1="-12" x2="3" y2="12" stroke="#C8902F" stroke-width="2" stroke-dasharray="3 3"/>
+    </g>
+        <rect x="495" y="410" width="96" height="96" rx="16" fill="#C8902F"/>
+        
+    <g transform="translate(543 458)">
+      <rect x="-30" y="-19" width="60" height="38" rx="8" fill="#2B1517" opacity="0.82"/>
+      <circle cx="-30" cy="0" r="6" fill="#C8902F"/>
+      <circle cx="30" cy="0" r="6" fill="#C8902F"/>
+      <line x1="3" y1="-12" x2="3" y2="12" stroke="#C8902F" stroke-width="2" stroke-dasharray="3 3"/>
+    </g>
+        <rect x="609" y="410" width="96" height="96" rx="16" fill="#4F9A63"/>
+        
+    <path d="M 639 460 l 12 12 l 24 -28"
+      stroke="#fff" stroke-width="9" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+        <rect x="723" y="410" width="96" height="96" rx="16"
+          fill="#ECE1CD" stroke="#E6D9C4" stroke-width="2"/>
+        <rect x="837" y="410" width="96" height="96" rx="16"
+          fill="#ECE1CD" stroke="#E6D9C4" stroke-width="2"/>
+
+  <!-- tagline -->
+  <text x="600" y="565" text-anchor="middle"
+    font-family="Hanken Grotesk" font-weight="700" font-size="30" fill="#2B1517">
+    Six actors. Reverse billing. Name the movie.
+  </text>
+</svg>

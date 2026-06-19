@@ -76,6 +76,22 @@ Free, takes a couple of minutes:
 
 ---
 
+## set-storage-cors.mjs
+
+One-shot: enable cross-origin `GET` on the project's default Storage bucket so the frontend can fetch `movies.json` from any origin. Run **once** per project (the setting is persistent on the bucket).
+
+```bash
+cd functions
+node scripts/set-storage-cors.mjs           # apply
+node scripts/set-storage-cors.mjs --show    # print current bucket CORS
+```
+
+Allows `GET`/`HEAD` from any origin, exposing `Content-Type`, `Cache-Control`, and `ETag`. Override the bucket with `FIREBASE_STORAGE_BUCKET=...`.
+
+If you see a CORS error fetching `movies.json` from the browser, this is the fix.
+
+---
+
 ## create-quiz.mjs
 
 Create a daily quiz from a TMDB movie id. Builds 6 reverse-billed actor clues from the movie's credits, then writes the quiz doc keyed by date.
