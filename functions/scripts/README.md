@@ -92,6 +92,74 @@ If you see a CORS error fetching `movies.json` from the browser, this is the fix
 
 ---
 
+## TMDB API key resolution
+
+All scripts that call TMDB resolve the key in this order:
+
+1. `process.env.TMDB_API_KEY` (local runs).
+2. `config/secrets.tmdbApiKey` in Firestore (used by the remote auto-quiz routine, which has no env vars).
+
+Set up the Firestore fallback once via the Firebase console:
+
+- Collection: `config`
+- Document id: `secrets`
+- Field: `tmdbApiKey` (string) — paste your TMDB v3 API key
+
+The fallback is read-once and cached for the process lifetime. Local development with the env var still works exactly as before.
+
+---
+
+## Daily auto-quiz pipeline
+
+Three scripts work together to power the `cluevie-daily-quiz` Claude skill (lives at `~/.claude/skills/cluevie-daily-quiz/SKILL.md`). The skill runs on a scheduled remote routine; you don't invoke these by hand outside of testing.
+
+### gather-candidates.mjs
+
+Deterministic pipeline that finds candidates for tomorrow's quiz. Emits a single JSON blob on stdout — logs on stderr.
+
+```bash
+cd functions
+TMDB_API_KEY=xxx node scripts/gather-candidates.mjs                          # tomorrow UTC
+TMDB_API_KEY=xxx node scripts/gather-candidates.mjs --date 2026-07-01
+TMDB_API_KEY=xxx node scripts/gather-candidates.mjs --sample 10 --survivors 3
+```
+
+What it does:
+
+1. Check if `quizzes/{tomorrow}` already exists. If so, emit `alreadyScheduled: true` and exit.
+2. Build a dedup set from quizzes used in the last 365 days.
+3. Random-sample 25 movies from the `movies` collection that aren't in the dedup set.
+4. For each candidate, call TMDB:
+   - Reject if `vote_count <= 500` (obscurity guard).
+   - Reject if fewer than 6 cast members pass the medium-strictness filter (`profile_path` exists, `known_for_department === "Acting"` or unset, plausible character name).
+5. Stop once 5 survivors are in hand. Output the survivors plus the last 10 picks for variety context.
+
+The shape of the output is documented in `lib/auto-quiz.mjs` and in the skill's SKILL.md.
+
+### write-auto-quiz.mjs
+
+Writes a quiz that the skill picked. Takes the chosen `tmdbId`, target date, and a rationale string. Writes both the quiz doc and a `quizCreationLog/{quizId}` entry for audit.
+
+```bash
+TMDB_API_KEY=xxx node scripts/write-auto-quiz.mjs \
+  --tmdbId 278 \
+  --date 2026-07-01 \
+  --rationale "Last three picks were comedies; rotating to a drama." \
+  --survivors-considered '["278","238","37165"]'
+```
+
+Output is a single JSON blob `{ ok: true, quizId, quizNumber, ... }` on success.
+
+### lib/quiz-writer.mjs / lib/auto-quiz.mjs
+
+Shared modules. `quiz-writer` owns TMDB resolution, clue building, Firestore writes, and the "medium strictness" cast filter (`eligibleCast`). `auto-quiz` owns the candidate-gathering pipeline. Both `create-quiz.mjs` (hand-pick) and the auto-quiz scripts share these.
+
+### Skill + schedule
+
+The actual reasoning + Slack notifications live in the skill at `~/.claude/skills/cluevie-daily-quiz/SKILL.md`. To run it on a cron, use the `schedule` skill in Claude Code (e.g. `cron: "0 18 * * *"`, agent prompt: "Run the cluevie-daily-quiz skill."). The Slack channel id needs to be set in the skill on first deploy.
+
+---
+
 ## create-quiz.mjs
 
 Create a daily quiz from a TMDB movie id. Builds 6 reverse-billed actor clues from the movie's credits, then writes the quiz doc keyed by date.
