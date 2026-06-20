@@ -85,6 +85,7 @@ function normalizeCastEntry(c) {
 
 // Filters a cast list down to entries that pass the "medium strictness" gate:
 // real photo, classified as Acting (or unset), plausible character name.
+// Returns top-billed first (TMDB order ascending; lower number = more prominent).
 export function eligibleCast(cast) {
   return (cast || [])
     .map(normalizeCastEntry)
@@ -96,9 +97,12 @@ export function eligibleCast(cast) {
         (c.knownForDepartment === "Acting" || c.knownForDepartment == null) &&
         isPlausibleCharacterName(c.character),
     )
-    .sort((a, b) => (b.order ?? 0) - (a.order ?? 0));
+    .sort((a, b) => (a.order ?? 9999) - (b.order ?? 9999));
 }
 
+// Picks the top CLUE_COUNT billed cast and assigns clue indices so that
+// the headliner is revealed *last* (highest index) and the most obscure
+// of the six is revealed *first* (index 0). Leonard Maltin Game order.
 export function buildClues(cast) {
   const eligible = eligibleCast(cast);
   if (eligible.length < CLUE_COUNT) {
@@ -106,8 +110,9 @@ export function buildClues(cast) {
       `INSUFFICIENT_CAST: only ${eligible.length} eligible cast members; need ${CLUE_COUNT}.`,
     );
   }
-  return eligible.slice(0, CLUE_COUNT).map((c, idx) => ({
-    index: idx,
+  const topBilled = eligible.slice(0, CLUE_COUNT); // [headliner, ..., 6th billed]
+  return topBilled.map((c, billingPos) => ({
+    index: CLUE_COUNT - 1 - billingPos, // headliner → index 5, 6th billed → index 0
     name: c.name,
     avatar: `${PROFILE_BASE}${c.profilePath}`,
     character: c.character || "",
