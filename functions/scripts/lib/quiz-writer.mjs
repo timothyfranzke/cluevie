@@ -67,16 +67,33 @@ function isPlausibleCharacterName(c) {
   return /[a-zA-Z]/.test(trimmed);
 }
 
+// Accepts either raw TMDB shape (profile_path, known_for_department) or the
+// stored shape (profilePath, knownForDepartment) and returns a normalized
+// {name, character, profilePath, order, knownForDepartment} record.
+function normalizeCastEntry(c) {
+  if (!c) return null;
+  const profilePath = c.profilePath ?? c.profile_path ?? null;
+  const knownForDepartment = c.knownForDepartment ?? c.known_for_department ?? null;
+  return {
+    name: c.name || "",
+    character: c.character || "",
+    profilePath,
+    order: c.order ?? null,
+    knownForDepartment,
+  };
+}
+
 // Filters a cast list down to entries that pass the "medium strictness" gate:
-// real photo, classified as Acting, plausible character name.
+// real photo, classified as Acting (or unset), plausible character name.
 export function eligibleCast(cast) {
   return (cast || [])
+    .map(normalizeCastEntry)
     .filter(
       (c) =>
         c &&
-        c.profile_path &&
+        c.profilePath &&
         c.name &&
-        (c.known_for_department === "Acting" || c.known_for_department == null) &&
+        (c.knownForDepartment === "Acting" || c.knownForDepartment == null) &&
         isPlausibleCharacterName(c.character),
     )
     .sort((a, b) => (b.order ?? 0) - (a.order ?? 0));
@@ -92,7 +109,7 @@ export function buildClues(cast) {
   return eligible.slice(0, CLUE_COUNT).map((c, idx) => ({
     index: idx,
     name: c.name,
-    avatar: `${PROFILE_BASE}${c.profile_path}`,
+    avatar: `${PROFILE_BASE}${c.profilePath}`,
     character: c.character || "",
   }));
 }
@@ -116,6 +133,33 @@ export async function resolveMovie(tmdbId, apiKey) {
     popularity: details.popularity ?? 0,
     cast: credits.cast || [],
     clues: buildClues(credits.cast || []),
+  };
+}
+
+// Same shape as resolveMovie but reads from a pre-enriched movies/{tmdbId}
+// Firestore doc. The auto-quiz routine uses this so it never has to hit TMDB.
+export async function resolveMovieFromFirestore(db, tmdbId) {
+  const snap = await db.collection(MOVIES_COLLECTION).doc(String(tmdbId)).get();
+  if (!snap.exists) {
+    throw new Error(`movies/${tmdbId} not found in Firestore. Re-seed via import-tmdb-list.mjs.`);
+  }
+  const d = snap.data();
+  if (!Array.isArray(d.cast) || d.cast.length === 0) {
+    throw new Error(
+      `movies/${tmdbId} ("${d.name}") has no cast data. Re-seed via import-tmdb-list.mjs to enrich.`,
+    );
+  }
+  return {
+    tmdbId: String(d.id || tmdbId),
+    title: d.name,
+    year: d.year || "",
+    genre: d.genre || "",
+    image: d.image || "",
+    voteCount: d.voteCount ?? 0,
+    popularity: d.popularity ?? 0,
+    runtime: d.runtime ?? null,
+    cast: d.cast,
+    clues: buildClues(d.cast),
   };
 }
 

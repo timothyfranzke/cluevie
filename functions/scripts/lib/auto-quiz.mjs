@@ -1,9 +1,7 @@
 // Deterministic candidate-gathering pipeline for the daily auto-quiz skill.
-// Steps 1-4 of the design: schedule check, dedup, pool sample, TMDB verify.
-//
-// Exports gatherCandidates({ targetDate, sampleSize, targetSurvivors, apiKey })
-// returning a JSON-serializable object. No Claude reasoning here; that lives
-// in SKILL.md.
+// All data comes from Firestore — TMDB is touched only at seeding time
+// (import-tmdb-list.mjs). The routine runs in an environment where TMDB
+// is blocked; this module respects that.
 
 import adminPkg from "firebase-admin";
 import {
@@ -13,8 +11,6 @@ import {
   ensureAdmin,
   eligibleCast,
   quizIdFromDate,
-  resolveMovie,
-  tmdbGet,
 } from "./quiz-writer.mjs";
 
 const DEFAULT_SAMPLE = 25;
@@ -29,7 +25,6 @@ function logErr(...args) {
 
 function pickRandomSubset(arr, n) {
   if (arr.length <= n) return [...arr];
-  // Fisher-Yates partial
   const a = [...arr];
   const out = [];
   for (let i = 0; i < n; i++) {
@@ -41,12 +36,10 @@ function pickRandomSubset(arr, n) {
 }
 
 export async function gatherCandidates({
-  targetDate, // Date (UTC midnight) for the quiz being created
+  targetDate,
   sampleSize = DEFAULT_SAMPLE,
   targetSurvivors = DEFAULT_SURVIVORS,
-  apiKey,
 } = {}) {
-  if (!apiKey) throw new Error("apiKey required");
   if (!(targetDate instanceof Date)) throw new Error("targetDate must be a Date");
 
   const db = ensureAdmin();
@@ -64,11 +57,11 @@ export async function gatherCandidates({
     };
   }
 
-  // Step 2: dedup set
+  // Step 2: dedup set + recent picks for variety context
   const cutoff = new Date(targetDate.getTime() - DEDUP_DAYS * 86400 * 1000);
   const recentSnap = await db
     .collection(QUIZZES_COLLECTION)
-    .where("date", ">=", admin_FieldValue.timestamp(cutoff))
+    .where("date", ">=", adminPkg.firestore.Timestamp.fromDate(cutoff))
     .orderBy("date", "desc")
     .get();
 
@@ -88,64 +81,62 @@ export async function gatherCandidates({
     }
   }
 
-  // Step 3: pool sample
-  // Read movies collection. Could be large (1000s); pull lightweight projection.
+  // Step 3: pool from Firestore. Only consider movies that have been enriched
+  // (have a cast array). Unenriched movies are silently skipped — they need
+  // a re-seed before they can be picked.
   const moviesSnap = await db.collection(MOVIES_COLLECTION).get();
   const pool = [];
+  let unenriched = 0;
   for (const doc of moviesSnap.docs) {
     const d = doc.data();
     const id = String(d.id || doc.id);
     if (exclude.has(id)) continue;
-    pool.push({ id, name: d.name, year: d.year || "" });
+    if (!Array.isArray(d.cast) || d.cast.length === 0) {
+      unenriched++;
+      continue;
+    }
+    pool.push({ id, doc: d });
   }
   const sample = pickRandomSubset(pool, sampleSize);
   logErr(
-    `[auto-quiz] target=${targetQuizId} pool=${pool.length} sample=${sample.length} exclude=${exclude.size}`,
+    `[auto-quiz] target=${targetQuizId} pool=${pool.length} sample=${sample.length} exclude=${exclude.size} unenriched=${unenriched}`,
   );
 
-  // Step 4: TMDB verify + filter until we have N survivors
+  // Step 4: filter against vote_count + eligibleCast directly on stored data.
   const survivors = [];
   const rejections = [];
   for (const candidate of sample) {
     if (survivors.length >= targetSurvivors) break;
-    try {
-      const details = await tmdbGet(`/movie/${candidate.id}`, apiKey);
-      if ((details.vote_count ?? 0) < VOTE_COUNT_MIN) {
-        rejections.push({
-          tmdbId: candidate.id,
-          title: details.title || candidate.name,
-          reason: `vote_count=${details.vote_count ?? 0} (< ${VOTE_COUNT_MIN})`,
-        });
-        continue;
-      }
-      const credits = await tmdbGet(`/movie/${candidate.id}/credits`, apiKey);
-      const eligible = eligibleCast(credits.cast || []);
-      if (eligible.length < CLUE_COUNT) {
-        rejections.push({
-          tmdbId: candidate.id,
-          title: details.title || candidate.name,
-          reason: `only ${eligible.length} eligible cast (need ${CLUE_COUNT})`,
-        });
-        continue;
-      }
-      const top6 = eligible.slice(0, CLUE_COUNT);
-      survivors.push({
-        tmdbId: String(candidate.id),
-        title: details.title,
-        year: (details.release_date || "").slice(0, 4) || "",
-        genre: (details.genres || []).map((g) => g.name).join(", "),
-        voteCount: details.vote_count,
-        popularity: details.popularity,
-        runtime: details.runtime ?? null,
-        clues: top6.map((c) => ({ name: c.name, character: c.character || "" })),
-      });
-    } catch (err) {
+    const d = candidate.doc;
+    const voteCount = d.voteCount ?? 0;
+    if (voteCount < VOTE_COUNT_MIN) {
       rejections.push({
         tmdbId: candidate.id,
-        title: candidate.name,
-        reason: `TMDB error: ${err.response?.status || err.message}`,
+        title: d.name,
+        reason: `voteCount=${voteCount} (< ${VOTE_COUNT_MIN})`,
       });
+      continue;
     }
+    const eligible = eligibleCast(d.cast || []);
+    if (eligible.length < CLUE_COUNT) {
+      rejections.push({
+        tmdbId: candidate.id,
+        title: d.name,
+        reason: `only ${eligible.length} eligible cast (need ${CLUE_COUNT})`,
+      });
+      continue;
+    }
+    const top6 = eligible.slice(0, CLUE_COUNT);
+    survivors.push({
+      tmdbId: candidate.id,
+      title: d.name,
+      year: d.year || "",
+      genre: d.genre || "",
+      voteCount,
+      popularity: d.popularity ?? 0,
+      runtime: d.runtime ?? null,
+      clues: top6.map((c) => ({ name: c.name, character: c.character || "" })),
+    });
   }
   logErr(`[auto-quiz] survivors=${survivors.length} rejected=${rejections.length}`);
 
@@ -155,14 +146,6 @@ export async function gatherCandidates({
     candidates: survivors,
     recentPicks,
     rejections,
-    notes: [],
+    notes: unenriched > 0 ? [`${unenriched} movies in pool are missing cast data and were skipped — re-seed to enrich them.`] : [],
   };
-}
-
-const admin_FieldValue = {
-  timestamp: (date) => adminPkg.firestore.Timestamp.fromDate(date),
-};
-
-export async function resolveForWrite(tmdbId, apiKey) {
-  return resolveMovie(tmdbId, apiKey);
 }

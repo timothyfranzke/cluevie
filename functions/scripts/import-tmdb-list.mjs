@@ -105,6 +105,43 @@ function normalize(raw) {
   };
 }
 
+const CAST_SLICE = 20;
+
+async function fetchDetailsAndCredits(apiKey, tmdbId) {
+  const [details, credits] = await Promise.all([
+    axios.get(`${TMDB_BASE}/movie/${tmdbId}`, {
+      params: { api_key: apiKey, language: "en-US" },
+      timeout: 15000,
+    }),
+    axios.get(`${TMDB_BASE}/movie/${tmdbId}/credits`, {
+      params: { api_key: apiKey, language: "en-US" },
+      timeout: 15000,
+    }),
+  ]);
+  return { details: details.data, credits: credits.data };
+}
+
+function enrichRecord(base, details, credits) {
+  const cast = (credits.cast || [])
+    .sort((a, b) => (a.order ?? 999) - (b.order ?? 999))
+    .slice(0, CAST_SLICE)
+    .map((c) => ({
+      name: c.name || "",
+      character: c.character || "",
+      profilePath: c.profile_path || null,
+      order: c.order ?? null,
+      knownForDepartment: c.known_for_department || null,
+    }));
+  return {
+    ...base,
+    voteCount: details.vote_count ?? 0,
+    popularity: details.popularity ?? 0,
+    runtime: details.runtime ?? null,
+    genre: (details.genres || []).map((g) => g.name).join(", "),
+    cast,
+  };
+}
+
 async function fetchPage(apiKey, endpoint, page) {
   const res = await axios.get(`${TMDB_BASE}${endpoint.path}`, {
     params: {
@@ -208,19 +245,39 @@ async function main() {
   });
   const db = admin.firestore();
 
-  console.log(`\nUpserting into "${COLLECTION}" ...`);
-  const batchSize = 400;
+  console.log(`\nEnriching with /movie + /credits (this is the slow step) ...`);
+  const enriched = [];
+  const failed = [];
+  for (let i = 0; i < movies.length; i++) {
+    const m = movies[i];
+    try {
+      const { details, credits } = await fetchDetailsAndCredits(apiKey, m.id);
+      enriched.push(enrichRecord(m, details, credits));
+    } catch (err) {
+      failed.push({ id: m.id, name: m.name, reason: err.response?.status || err.message });
+    }
+    if ((i + 1) % 20 === 0 || i + 1 === movies.length) {
+      console.log(`  enriched ${i + 1}/${movies.length} (${failed.length} failed)`);
+    }
+  }
+  if (failed.length) {
+    console.warn(`  ⚠ ${failed.length} movies couldn't be enriched and will be skipped:`);
+    failed.slice(0, 5).forEach((f) => console.warn(`    · ${f.id} ${f.name} — ${f.reason}`));
+  }
+
+  console.log(`\nUpserting ${enriched.length} into "${COLLECTION}" ...`);
+  const batchSize = 200;
   let written = 0;
-  for (let i = 0; i < movies.length; i += batchSize) {
+  for (let i = 0; i < enriched.length; i += batchSize) {
     const batch = db.batch();
-    for (const m of movies.slice(i, i + batchSize)) {
+    for (const m of enriched.slice(i, i + batchSize)) {
       const data = { ...m, updatedAt: admin.firestore.FieldValue.serverTimestamp() };
       for (const k of Object.keys(data)) if (data[k] === null) delete data[k];
       batch.set(db.collection(COLLECTION).doc(m.id), data, { merge: true });
     }
     await batch.commit();
-    written += Math.min(batchSize, movies.length - i);
-    console.log(`  upserted ${written}/${movies.length}`);
+    written += Math.min(batchSize, enriched.length - i);
+    console.log(`  upserted ${written}/${enriched.length}`);
   }
 
   await rebuildSearchIndex(db);

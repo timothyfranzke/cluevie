@@ -1,10 +1,11 @@
 #!/usr/bin/env node
 // Skill-driven quiz writer. Takes the TMDB id + date that Claude picked,
-// resolves the movie via TMDB, writes the quiz doc, and writes a
-// quizCreationLog entry with the rationale for audit.
+// resolves the movie from Firestore (no TMDB calls — the routine env
+// blocks them), writes the quiz doc, and writes a quizCreationLog entry
+// with the rationale for audit.
 //
 // Usage (from the skill, not by hand):
-//   TMDB_API_KEY=xxx node scripts/write-auto-quiz.mjs \
+//   node scripts/write-auto-quiz.mjs \
 //     --tmdbId 278 \
 //     --date 2026-07-01 \
 //     --rationale "Last three picks were comedies; rotating to a drama." \
@@ -14,9 +15,7 @@
 
 import {
   ensureAdmin,
-  getTmdbApiKey,
-  isAnswerInMoviesCollection,
-  resolveMovie,
+  resolveMovieFromFirestore,
   utcMidnightFor,
   writeCreationLog,
   writeQuiz,
@@ -50,7 +49,6 @@ async function main() {
     process.exit(1);
   }
   const playDate = utcMidnightFor(args.date);
-  const apiKey = await getTmdbApiKey();
   let survivorsConsidered = null;
   if (args.survivorsConsidered) {
     try {
@@ -60,10 +58,8 @@ async function main() {
     }
   }
 
-  const resolved = await resolveMovie(args.tmdbId, apiKey);
-
   const db = ensureAdmin();
-  const movieInPool = await isAnswerInMoviesCollection(db, args.tmdbId);
+  const resolved = await resolveMovieFromFirestore(db, args.tmdbId);
 
   const writeResult = await writeQuiz(db, { resolved, playDate });
   await writeCreationLog(db, {
@@ -80,7 +76,7 @@ async function main() {
       voteCount: resolved.voteCount,
       popularity: resolved.popularity,
       source: "auto-quiz-skill",
-      movieInPool,
+      movieInPool: true,
       overwrote: writeResult.overwrote,
     },
   });
@@ -92,7 +88,6 @@ async function main() {
         quizId: writeResult.quizId,
         quizNumber: writeResult.quizNumber,
         overwrote: writeResult.overwrote,
-        movieInPool,
         title: resolved.title,
         year: resolved.year,
         genre: resolved.genre,
@@ -105,9 +100,6 @@ async function main() {
 
 main().catch((err) => {
   console.error("\nFatal:", err.message || err);
-  if (err.response?.status) {
-    console.error(`  HTTP ${err.response.status}`, err.response.data?.status_message || "");
-  }
   process.stdout.write(
     JSON.stringify({ ok: false, error: err.message || String(err) }, null, 2) + "\n",
   );
