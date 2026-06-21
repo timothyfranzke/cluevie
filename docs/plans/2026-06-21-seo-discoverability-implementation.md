@@ -48,9 +48,12 @@ Add **before** the catch-all `**` → `/index.html` rewrite (order matters — f
 
 - Shared slugify (`142` + `The Big Lebowski` → `142-the-big-lebowski`). Used by the sitemap, archive links, and (later) any client-side "view in archive" link. Parse back to the number from the slug prefix so the title portion is cosmetic.
 
-### Daily cron sitemap ping
+### Daily cron sitemap ping — DROPPED
 
-- In the existing daily quiz routine, after writing tomorrow's quiz, issue a `GET https://www.google.com/ping?sitemap=https://cluvie.com/sitemap.xml`. Best-effort, non-fatal on error.
+- ~~Ping `google.com/ping?sitemap=...` after the daily write.~~ Google **deprecated**
+  the sitemap-ping endpoint in 2023 (Bing too); it's now a no-op. Freshness instead
+  relies on the `robots.txt` sitemap reference + Search Console, which Google recrawls
+  on its own cadence. No code needed.
 
 **Phase 1 acceptance:**
 - `/puzzle/<n>-<slug>` for a past puzzle returns 200 with server-rendered cast/title in `view-source`; a future/unknown puzzle returns 404.

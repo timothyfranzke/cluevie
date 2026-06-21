@@ -26,6 +26,10 @@
       }
     ],
     "rewrites": [
+      { "source": "/archive", "function": "seo" },
+      { "source": "/archive/**", "function": "seo" },
+      { "source": "/puzzle/**", "function": "seo" },
+      { "source": "/sitemap.xml", "function": "seo" },
       {
         "source": "**",
         "destination": "/index.html"
