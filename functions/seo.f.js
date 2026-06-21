@@ -2,14 +2,12 @@ const functions = require("firebase-functions");
 const admin = require("firebase-admin");
 
 // Admin may already be initialized by another *.f.js (index.js requires them
-// all). Guard so we never double-init, and reuse the same service credentials.
+// all). Guard so we never double-init. In the Cloud Functions runtime,
+// initializeApp() with no args uses the platform's default credentials, so we
+// avoid the deprecated functions.config() service-account path entirely.
 if (!admin.apps.length) {
   try {
-    const serviceAccount = require("./." + functions.config().service.account);
-    admin.initializeApp({
-      credential: admin.credential.cert(serviceAccount),
-      databaseURL: functions.config().service.db,
-    });
+    admin.initializeApp();
   } catch (e) {
     console.error("seo: admin init failed", e);
   }
