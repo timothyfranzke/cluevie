@@ -51,6 +51,9 @@ testem.log
 # Firebase
 .firebase
 
+# Claude Code agent worktrees (never commit)
+.claude/worktrees/
+
 # Secrets — never commit
 **/*firebase-adminsdk*.json
 **/serviceAccountKey*.json
