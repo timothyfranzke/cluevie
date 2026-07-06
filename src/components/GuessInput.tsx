@@ -63,7 +63,6 @@ export function GuessInput() {
                 <PosterPlaceholder src={m.image} width={26} height={37} />
                 <div className="flex-1">
                   <div className="text-[15px] font-semibold">{m.name}</div>
-                  {m.year && <div className="text-[12px] text-muted">{m.year}</div>}
                 </div>
               </button>
             ))
