@@ -15,10 +15,12 @@ within the five possible reveals.
 
 - **Cast recap shows only revealed actors.** Unrevealed clues stay hidden —
   the "clues cost points" principle holds even at the end.
-- **Reveal sequence skips clue 1.** Gameplay uses clues indexed 2–6, most
-  obscure first. Clue 1 (the most obscure actor) never appears during play,
-  only in the post-game full billing. A player who reveals five times ends
-  on the headliner with 1 point left.
+- **Reveal sequence skips the most obscure clue.** Gameplay uses the five
+  highest-billed clues, most obscure first. The lowest-billed actor never
+  appears during play, only in the post-game full billing. A player who
+  reveals five times ends on the headliner with 1 point left.
+  (Implementation note: clue indexes are 0-based — headliner is index 5 —
+  so the code selects by sorted position, not literal index values.)
 - **Giving up counts as a loss.** Same outcome, stats, streak reset, and
   share grid (X/6, 🟥 last slot) as a wrong final guess. No new outcome type.
 

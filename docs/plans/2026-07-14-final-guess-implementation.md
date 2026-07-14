@@ -61,12 +61,15 @@ No `ClueCard` changes — it already takes `total` as a prop.
 
 `src/components/FullBilling.tsx` currently marks the top `revealedCount`
 rows of the descending billing (headliner first) as revealed — wrong under
-both old and new mechanics. Change: keep the `revealedCount` prop, compute
-the revealed set as clue indexes `2 .. revealedCount + 1` (ascending
-playable order), and set `wasRevealed` by membership:
+both old and new mechanics. Change: keep the `revealedCount` prop and
+build the revealed set from the shared helper (clue indexes are 0-based
+in the data, so never hardcode index values):
 
 ```ts
-const wasRevealed = c.index >= 2 && c.index <= revealedCount + 1;
+const revealedIdx = new Set(
+  revealedClues(clues, revealedCount).map((c) => c.index),
+);
+const wasRevealed = revealedIdx.has(c.index);
 ```
 
 Call sites in `Win.tsx:53` / `Lose.tsx:50` are unchanged.
