@@ -15,6 +15,10 @@ export function Lose({ onShare }: Props) {
   const openHowToPlay = useGame((s) => s.openHowToPlay);
   const openStats = useGame((s) => s.openStats);
 
+  // A give-up fills a slot without recording a guess.
+  const filledSlots = result.slots.filter((s) => s !== "empty").length;
+  const gaveUp = filledSlots > result.revealedClues + result.guesses.length;
+
   return (
     <div className="flex flex-col min-h-screen md:min-h-0 md:h-full">
       <Header size="sm" onOpenRules={openHowToPlay} onOpenStats={openStats} />
@@ -23,7 +27,7 @@ export function Lose({ onShare }: Props) {
           Better luck
         </div>
         <div className="font-display text-[38px] leading-[0.98] text-ink text-center mb-2">
-          Out of points
+          {gaveUp ? "Tomorrow's another day" : "Out of points"}
         </div>
         <div className="text-[14px] text-muted text-center mb-5">
           No worries — a fresh one lands tomorrow.
