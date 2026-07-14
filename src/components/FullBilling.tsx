@@ -1,4 +1,5 @@
 import type { Clue } from "../game/types";
+import { revealedClues } from "../game/clues";
 import { PersonGlyph } from "./icons";
 
 interface Props {
@@ -8,12 +9,15 @@ interface Props {
 
 export function FullBilling({ clues, revealedCount }: Props) {
   const ordered = [...clues].sort((a, b) => b.index - a.index);
+  const revealedIdx = new Set(
+    revealedClues(clues, revealedCount).map((c) => c.index),
+  );
   return (
     <div className="w-full">
       <div className="eyebrow mb-2.5">The full billing</div>
       <div className="flex flex-col gap-[7px]">
         {ordered.map((c, i) => {
-          const wasRevealed = i < revealedCount;
+          const wasRevealed = revealedIdx.has(c.index);
           return (
             <div
               key={c.index}

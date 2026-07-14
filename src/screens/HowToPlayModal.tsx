@@ -20,7 +20,7 @@ export function HowToPlayModal() {
 
         <div className="flex flex-col gap-[18px] mb-[22px]">
           <Rule num={1}>
-            <b>Six clues, reverse billing.</b> The cast reveals from the most obscure character
+            <b>Five clues, reverse billing.</b> The cast reveals from an obscure character
             actor up to the headliner.
           </Rule>
           <Rule num={2}>

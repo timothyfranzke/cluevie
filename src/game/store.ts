@@ -70,6 +70,36 @@ function firstEmptyIndex(slots: SlotState[]): number {
   return slots.findIndex((s) => s === "empty");
 }
 
+function finishGame(
+  set: (partial: Partial<StoreState>) => void,
+  user: UserState,
+  next: Result,
+  correct: boolean,
+  winningSlot: number | null,
+) {
+  const today = todayKey();
+  const streakBroken =
+    user.lastPlayedDate &&
+    differenceInCalendarDays(new Date(), new Date(user.lastPlayedDate)) > 1;
+  const newStreak = correct ? (streakBroken ? 1 : user.streak + 1) : 0;
+  const newHist = { ...user.scoreHistogram };
+  if (winningSlot) {
+    newHist[winningSlot as 1 | 2 | 3 | 4 | 5 | 6] += 1;
+  }
+  const newUser: UserState = {
+    ...user,
+    played: user.played + 1,
+    wins: user.wins + (correct ? 1 : 0),
+    streak: newStreak,
+    maxStreak: Math.max(user.maxStreak, newStreak),
+    lastPlayedDate: today,
+    scoreHistogram: newHist,
+  };
+  saveUserState(newUser);
+  set({ user: newUser });
+  void persistResult(next);
+}
+
 interface StoreState {
   status: "loading" | "ready" | "error";
   quiz: Quiz | null;
@@ -85,6 +115,7 @@ interface StoreState {
   init: () => Promise<void>;
   revealNextClue: () => void;
   submitGuess: (movie: MovieSummary) => void;
+  giveUp: () => void;
   setSearchTerm: (term: string) => void;
   acceptRules: () => void;
   openStats: () => void;
@@ -132,7 +163,7 @@ export const useGame = create<StoreState>((set, get) => ({
     const { quiz, result } = get();
     if (!quiz) return;
     if (result.outcome !== "playing") return;
-    if (result.revealedClues >= quiz.clues.length) return;
+    if (result.revealedClues >= quiz.clues.length - 1) return; // clue 1 is never playable
     if (result.remainingPoints <= 1) return; // keep at least one point for guessing
     const slots = [...result.slots];
     const idx = firstEmptyIndex(slots);
@@ -170,28 +201,8 @@ export const useGame = create<StoreState>((set, get) => ({
     };
     saveResult(next);
     if (outcome !== "playing") {
-      const today = todayKey();
-      const streakBroken =
-        user.lastPlayedDate &&
-        differenceInCalendarDays(new Date(), new Date(user.lastPlayedDate)) > 1;
-      const newStreak = correct ? (streakBroken ? 1 : user.streak + 1) : 0;
       const winningSlot = correct ? Math.min(6, Math.max(1, idx + 1)) : null;
-      const newHist = { ...user.scoreHistogram };
-      if (winningSlot) {
-        newHist[winningSlot as 1 | 2 | 3 | 4 | 5 | 6] += 1;
-      }
-      const newUser: UserState = {
-        ...user,
-        played: user.played + 1,
-        wins: user.wins + (correct ? 1 : 0),
-        streak: newStreak,
-        maxStreak: Math.max(user.maxStreak, newStreak),
-        lastPlayedDate: today,
-        scoreHistogram: newHist,
-      };
-      saveUserState(newUser);
-      set({ user: newUser });
-      void persistResult(next);
+      finishGame(set, user, next, correct, winningSlot);
     }
     set({
       result: next,
@@ -199,6 +210,27 @@ export const useGame = create<StoreState>((set, get) => ({
       searchTerm: "",
       searchResults: [],
     });
+  },
+
+  giveUp() {
+    const { quiz, result, user } = get();
+    if (!quiz) return;
+    if (result.outcome !== "playing") return;
+    const slots = [...result.slots];
+    const idx = firstEmptyIndex(slots);
+    if (idx === -1) return;
+    slots[idx] = "incorrect";
+    // No entry in `guesses` — that's how a give-up is told apart from a wrong guess.
+    const next: Result = {
+      ...result,
+      slots,
+      remainingPoints: 0,
+      outcome: "lost",
+      completedOn: Date.now(),
+    };
+    saveResult(next);
+    finishGame(set, user, next, false, null);
+    set({ result: next, searchTerm: "", searchResults: [] });
   },
 
   setSearchTerm(term) {

@@ -1,8 +1,10 @@
 import { useGame } from "../game/store";
+import { revealedClues } from "../game/clues";
 import { ScoreGrid } from "../components/ScoreSlot";
 import { ClueCard } from "../components/ClueCard";
 import { Header } from "../components/Header";
 import { GuessInput } from "../components/GuessInput";
+import { FinalGuess } from "./FinalGuess";
 
 function formatDate(): string {
   const fmt = new Intl.DateTimeFormat("en-US", {
@@ -22,12 +24,11 @@ export function ActiveGame() {
   const openHowToPlay = useGame((s) => s.openHowToPlay);
   const openStats = useGame((s) => s.openStats);
 
-  const visibleClues = [...quiz.clues]
-    .sort((a, b) => a.index - b.index)
-    .slice(0, result.revealedClues)
-    .reverse();
+  if (result.remainingPoints === 1) return <FinalGuess />;
 
-  const noMoreClues = result.revealedClues >= quiz.clues.length;
+  const visibleClues = revealedClues(quiz.clues, result.revealedClues).reverse();
+
+  const noMoreClues = result.revealedClues >= quiz.clues.length - 1;
   const noMorePoints = result.remainingPoints <= 1;
 
   return (
@@ -80,7 +81,7 @@ export function ActiveGame() {
             key={c.index}
             clue={c}
             ordinal={result.revealedClues - i}
-            total={quiz.clues.length}
+            total={quiz.clues.length - 1}
             reveal={i === 0}
           />
         ))}
